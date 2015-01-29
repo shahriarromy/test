@@ -11,18 +11,17 @@
             "aaSorting": [[0, 'asc']],
             "sPaginationType": "full_numbers",
             "aoColumns": [
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": true},
-                {"bVisible": true, "bSearchable": false, "bSortable": false}
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": false}
 
 
             ]
-        });
+        }).columnFilter();
     });
     
     function delete_employee(item_id){
@@ -105,11 +104,12 @@
             ?>
             
                       </div>-->
+<div id="content-table-inner clearfix">
 
-            <table id="employee_list">
+    <div id="table-content">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0" id="employee_list">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Company</th>
                         <th>Department</th>
                         <th>Name</th>
@@ -138,7 +138,21 @@
 //              }
             ?>      -->
                 </tbody>
+                <tfoot>
+                <tr>
+                    <th width="10%">Company</th>
+                        <th width="10%">Department</th>
+                        <th width="10%">Name</th>
+                        <th width="10%">Picture</th>
+                        <th width="10%">Designation</th>
+                        <th width="10%">Contact Number</th> 
+                        <th width="15%"></th>
+                    
+                </tr>
+            </tfoot>
             </table>
+            </div>
+        </div>
 
 <?php //echo '<div class="pagination">'.$this->pagination->create_links().'</div>';  ?>
 

@@ -292,7 +292,7 @@ $(document).ready(function(){
                 <div class="control-group">
                     <label for="inputError" class="control-label">Present Age</label>
                     <div class="controls">
-                        <input type="text" id="present_age" name="present_age" value="<?php echo set_value('present_age'); ?>" disabled="disabled">
+                        <input type="text" id="present_age" name="present_age" readonly="readonly">
                     </div>
                 </div>
                 <div class="control-group">

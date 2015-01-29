@@ -6,7 +6,7 @@
         <link href="<?php echo base_url(); ?>assets/css/admin/global.css" rel="stylesheet" type="text/css">
         <link href="<?php echo base_url(); ?>assets/css/admin/bootstrap.min.css" rel="stylesheet" type="text/css">
         <!--data table css-->
-        <link href="<?php echo base_url(); ?>css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+<!--        <link href="<?php echo base_url(); ?>css/jquery.dataTabl.min.css" rel="stylesheet" type="text/css">-->
         <link href="<?php echo base_url(); ?>css/jquery-ui.css" rel="stylesheet" type="text/css">
         <link href="<?php echo base_url(); ?>css/datatable_page.css" rel="stylesheet" type="text/css">
         <link href="<?php echo base_url(); ?>css/datatable_table.css" rel="stylesheet" type="text/css">
@@ -20,6 +20,8 @@
         <script src="<?php echo base_url(); ?>js/jquery.dataTables.delay.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/jquery.jeditable.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/jquery-ui.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
+        
 
 
 
