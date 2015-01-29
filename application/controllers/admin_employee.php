@@ -13,6 +13,13 @@ class Admin_employee extends CI_Controller {
         $this->load->model('employee_model');
         $this->load->model('department_model');
         $this->load->model('company_model');
+        
+        $this->load->library("Img_upload", array('path' => "uploads/employee/"));
+        $this->path = "uploads/employee/";
+        $this->temp_path = "images/temp/";
+        $this->video_path = "images/videos/";
+        ini_set('post_max_size', '1000MB');
+        ini_set('upload_max_filesize', '1000MB');
 
         if (!$this->session->userdata('is_logged_in')) {
             redirect('admin/login');
@@ -188,8 +195,8 @@ class Admin_employee extends CI_Controller {
 
     function ajax_data() {
 
-        $aColumns = array('id', 'company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number');
-        $aColumns_temp = array('id', 'company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'action');
+        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','id');
+        $aColumns_temp = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'action','id');
 
         $sIndexColumn = "id";
         $sTable = 'v_employee';
@@ -226,27 +233,26 @@ class Admin_employee extends CI_Controller {
          * on very large tables, and MySQL's regex functionality is very limited
          */
         $sWhere = "";
-        if ($_GET['sSearch'] != "") {
-            //$sWhere .= "WHERE (";
+       if ($_GET['sSearch'] != "") {
             $sWhere .= "";
             for ($i = 0; $i < count($aColumns); $i++) {
-                $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                $sWhere .= $aColumns[$i] . " LIKE '%" . $_GET['sSearch'] . "%' OR ";
             }
             $sWhere = substr_replace($sWhere, "", -3);
-            //$sWhere .= ')';
         }
-
         /* Individual column filtering */
         for ($i = 0; $i < count($aColumns); $i++) {
             if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
-                if ($sWhere == "") {
-                    $sWhere = "WHERE ";
-                } else {
+                if ($sWhere != "") {
                     $sWhere .= " AND ";
                 }
-                $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+                /* else {
+                  $sWhere .= " AND ";
+                  } */
+                $sWhere .= $aColumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' "; //mysql_real_escape_string($_GET['sSearch_' . $i])
             }
         }
+
 
         // Select Data
         $this->db->select('SQL_CALC_FOUND_ROWS ' . str_replace(' , ', ' ', implode(', ', $aColumns)), false);
@@ -269,12 +275,40 @@ class Admin_employee extends CI_Controller {
         foreach ($rResult as $aRow) {
             $row = array();
             foreach ($aColumns_temp as $col) {
+                
+                if ($col == "employee_pic") {
+                    /* Special output formatting for 'id' */
+                    $row[] = "
+
+                            
+<table>
+			<tr>
+			
+			<td>
+                            <img src='".site_url()."uploads/employee/" . $aRow['employee_pic'] . "' style='height:50px; width:50px;' />
+			</td>
+			</tr>
+			</table>
+
+			";
+                    continue;
+                }
+                
+                
                 if ($col == "action") {
                     /* Special output formatting for 'id' */
                     $row[] = "
-                        <a class='btn btn-info' href='".site_url("admin")."/employee/view/" . $aRow['id'] . "' title='Get Information'>View</a>
-                        <a class='btn btn-success' href= '" . site_url("property/edit_property/" . $aRow['id']) . "' title='Edit'>Edit</a>
-                        <a class='btn btn-danger' href='javascript:' onclick='delete_employee(" . $aRow['id'] . ");' title='Delete'>Delete</a>
+
+                            
+<table>
+			<tr>
+			
+			<td>
+			<a href='".site_url("admin")."/employee/view/" . $aRow['id'] . "' title='Get Information'><img  width='20' height='20' src='".site_url()."/images/show-menu.png'> </a> <a href='" . site_url("admin")."/employee/update/" . $aRow['id'] . "' title='Edit Employee'><img  width='20' height='20' src='".site_url()."images/edit.jpg'> </a> <a href='javascript:' onclick='delete_employee(" . $aRow['id'] . ");' title='Delete'><img  width='20' height='20' src='".site_url()."images/delete_red.png'> </a>    
+			</td>
+			</tr>
+			</table>
+
 			";
                     continue;
                 }
@@ -396,51 +430,180 @@ class Admin_employee extends CI_Controller {
      * Update item by his id
      * @return void
      */
-    public function update() {
+    public function update($id) {
         //employee id 
-        $id = $this->uri->segment(4);
+        //$id = $this->uri->segment(4);
+        //$id="5";
+        //$employee_id=$this->employee_model->get_employee_by_id($id);
 
         //if save button was clicked, get the data sent via post
-        if ($this->input->server('REQUEST_METHOD') === 'POST') {
-            //form validation
-            $this->form_validation->set_rules('company_id', 'company_id', 'required');
-            $this->form_validation->set_rules('department_id', 'department_id', 'required');
-            $this->form_validation->set_rules('description', 'description', 'required');
-            $this->form_validation->set_rules('stock', 'stock', 'required|numeric');
-            $this->form_validation->set_rules('cost_price', 'cost_price', 'required|numeric');
-            $this->form_validation->set_rules('sell_price', 'sell_price', 'required|numeric');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
-            //if the form has passed through the validation
-            if ($this->form_validation->run()) {
-
-                $data_to_store = array(
-                    'company_id' => $this->input->post('company_id'),
-                    'department_id' => $this->input->post('department_id'),
-                    'description' => $this->input->post('description'),
-                    'stock' => $this->input->post('stock'),
-                    'cost_price' => $this->input->post('cost_price'),
-                    'sell_price' => $this->input->post('sell_price')
-                );
-                //if the insert has returned true then we show the flash message
-                if ($this->employee_model->update_employee($id, $data_to_store) == TRUE) {
-                    $this->session->set_flashdata('flash_message', 'updated');
-                } else {
-                    $this->session->set_flashdata('flash_message', 'not_updated');
-                }
-                redirect('admin/employee/update/' . $id . '');
-            }//validation run
-        }
+//        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+//            //form validation
+//            $this->form_validation->set_rules('company_id', 'company_id', 'required');
+//            $this->form_validation->set_rules('department_id', 'department_id', 'required');
+//            $this->form_validation->set_rules('description', 'description', 'required');
+//            $this->form_validation->set_rules('stock', 'stock', 'required|numeric');
+//            $this->form_validation->set_rules('cost_price', 'cost_price', 'required|numeric');
+//            $this->form_validation->set_rules('sell_price', 'sell_price', 'required|numeric');
+//            $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+//            //if the form has passed through the validation
+//            if ($this->form_validation->run()) {
+//
+//                $data_to_store = array(
+//                    'company_id' => $this->input->post('company_id'),
+//                    'department_id' => $this->input->post('department_id'),
+//                    'description' => $this->input->post('description'),
+//                    'stock' => $this->input->post('stock'),
+//                    'cost_price' => $this->input->post('cost_price'),
+//                    'sell_price' => $this->input->post('sell_price')
+//                );
+//                //if the insert has returned true then we show the flash message
+//                if ($this->employee_model->update_employee($id, $data_to_store) == TRUE) {
+//                    $this->session->set_flashdata('flash_message', 'updated');
+//                } else {
+//                    $this->session->set_flashdata('flash_message', 'not_updated');
+//                }
+//                redirect('admin/employee/update/' . $id . '');
+//            }//validation run
+//        }
 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
         //employee data
         //fetch department data to populate the select field
-        $data['employee'] = $this->employee_model->get_employee_by_id($id);
-        $data['company'] = $this->company_model->get_company();
+        $data['data'] = $this->employee_model->get_employee_by_id($id);
         $data['department'] = $this->department_model->get_department();
+        $data['company'] = $this->company_model->get_company();
+//        $data['company'] = $this->company_model->get_company();
+//        $data['department'] = $this->department_model->get_department();
         //load the view
         $data['main_content'] = 'admin/employee/edit';
         $this->load->view('includes/template', $data);
+    }
+    public function editAction(){
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            //form validation
+            // $this->form_validation->set_rules('company_id', 'company_id', 'required');
+            // $this->form_validation->set_rules('department_id', 'department_id', 'required');
+            // $this->form_validation->set_rules('id_no', 'id_no', 'required');
+            $this->form_validation->set_rules('employee_name', 'employee_name', 'required');
+            // $this->form_validation->set_rules('designation', 'designation', 'required');
+            // $this->form_validation->set_rules('qualification', 'qualification', 'required');
+            // $this->form_validation->set_rules('joining_date', 'joining_date', 'required');
+            // $this->form_validation->set_rules('confirmation_date', 'confirmation_date', 'required');
+            // $this->form_validation->set_rules('place_of_work', 'place_of_work', 'required');
+            // $this->form_validation->set_rules('present_salary', 'present_salary', 'required');
+            // $this->form_validation->set_rules('last_increment_date', 'last_increment_date', 'required');
+            // $this->form_validation->set_rules('permanent_address', 'permanent_address', 'required');
+            // $this->form_validation->set_rules('present_address', 'present_address', 'required');
+            // $this->form_validation->set_rules('contact_number', 'contact_number', 'required|numeric');
+            // $this->form_validation->set_rules('voter_id', 'voter_id', 'required|numeric');
+            // $this->form_validation->set_rules('bond_given', 'bond_given', 'required');
+            // $this->form_validation->set_rules('guarantor', 'guarantor', 'required');
+            // $this->form_validation->set_rules('relation_guarantor', 'relation_guarantor', 'required');
+            // $this->form_validation->set_rules('mobile_guarantor', 'mobile_guarantor', 'required|numeric');
+            // $this->form_validation->set_rules('contact_spouse', 'contact_spouse', 'numeric');
+            // $this->form_validation->set_rules('children', 'children', 'numeric');
+            // $this->form_validation->set_rules('father_contact', 'father_contact', 'numeric');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run()) {
+                $config['upload_path'] = 'uploads/employee/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '100';
+                $config['max_width'] = '1024';
+                $config['max_height'] = '768';
+                $this->load->library('upload', $config);
+                $employee_pic=$this->input->post('employee_pic');
+                //$this->load->library('Img_upload');
+                $data_to_store = array(
+                    'company_id' => $this->input->post('company_id'),
+                    'department_id' => $this->input->post('department_id'),
+                    'employee_pic' => $this->input->post('employee_pic'),
+                    'id_no' => $this->input->post('id_no'),
+                    'employee_name' => $this->input->post('employee_name'),
+                    'father_name' => $this->input->post('father_name')?$this->input->post('father_name'):'',
+                    'father_contact' => $this->input->post('father_contact')?$this->input->post('father_contact'):0,
+                    'mother_name' => $this->input->post('mother_name'),
+                    'contact_number' => $this->input->post('contact_number'),
+                    'email' => $this->input->post('email'),
+                    'd_o_b' => $this->input->post('d_o_b'),
+                    'present_age' => $this->input->post('present_age'),
+                    'blood_group' => $this->input->post('blood_group'),
+                    'voter_id' => $this->input->post('voter_id'),
+                    'permanent_address' => $this->input->post('permanent_address'),
+                    'present_address' => $this->input->post('present_address'),
+                    'qualification' => $this->input->post('qualification'),
+                    'designation' => $this->input->post('designation'),
+                    'joining_date' => $this->input->post('joining_date'),
+                    'confirmation_date' => $this->input->post('confirmation_date'),
+                    'place_of_work' => $this->input->post('place_of_work'),
+                    'guarantor' => $this->input->post('guarantor'),
+                    'show_cause' => $this->input->post('show_cause'),
+                    'penalty' => $this->input->post('penalty'),
+                    'consolidate_salary' => $this->input->post('consolidate_salary'),
+                    'basic' => $this->input->post('basic'),
+                    'dearness_allow' => $this->input->post('dearness_allow'),
+                    'house_rent' => $this->input->post('house_rent'),
+                    'special_allow' => $this->input->post('special_allow'),
+                    'mobile_allow' => $this->input->post('mobile_allow'),
+                    'heavy_duty' => $this->input->post('heavy_duty'),
+                    'washing_allow' => $this->input->post('washing_allow'),
+                    'conveyance_allow' => $this->input->post('conveyance_allow'),
+                    'misc' => $this->input->post('misc'),
+                    'total' => $this->input->post('total'),
+                    'appointment_as' => $this->input->post('appointment_as'),
+                    'target_given' => $this->input->post('target_given'),
+                    'target_achieved' => $this->input->post('target_achieved'),
+                    'liability_recovery' => $this->input->post('liability_recovery'),
+                    'personal_equipment' => $this->input->post('personal_equipment'),
+                    'privileges_leave' => $this->input->post('privileges_leave'),
+                    'casual_leave' => $this->input->post('casual_leave'),
+                    'sick_leave' => $this->input->post('sick_leave'),
+                    'awol' => $this->input->post('awol'),
+                    'punctuality' => $this->input->post('punctuality'),
+                    'job_knowledge' => $this->input->post('job_knowledge'),
+                    'initiative' => $this->input->post('initiative'),
+                    'short_coming' => $this->input->post('short_coming'),
+                );
+                
+                if (is_uploaded_file($_FILES['employee_pic']['tmp_name'])) {
+            $this->img_upload->do_upload('employee_pic');
+            //if($data)		
+            $errors = $this->img_upload->display_errors();
+            if (!empty($errors)) {
+               redirect_with_msg("user/user_edit", $errors);
+            }
+            $image_info = $this->img_upload->data();
+            $employee_pic_new = $image_info ['file_name'];
+           $data_to_store=array(
+               'employee_pic'=>$employee_pic_new
+           );
+        }
+                //if the insert has returned true then we show the flash message
+                //if ($this->upload->do_upload('employee_pic')) {
+                    if ($this->employee_model->update_employee($this->input->post('employee_id'),$data_to_store)) {
+                        if(is_uploaded_file($_FILES['employee_pic']['tmp_name'])){
+                        if (is_file("uploads/employee/" . $employee_pic)) {
+                unlink("uploads/employee/" . $employee_pic);
+               }
+                //redirect_with_msg('user/user_edit', 'Profile picture updated successfully');
+                        $data['flash_message'] = TRUE;
+                    }
+                    }else {
+                        $data['flash_message'] = FALSE;
+                    }
+//                } else {
+//                    $data['flash_message'] = FALSE;
+//                }
+            }
+        }
+        $id=$this->input->post('employee_id');
+        //$data['main_content'] = site_url().'admin/employee/update/'.$id;
+        //$this->load->view('includes/template', $data);
+        //$this->session->set_userdata('success','success');
+        redirect(site_url().'admin/employee/update/'.$id);
     }
     
     function get_change_value($id){

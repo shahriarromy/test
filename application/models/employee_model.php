@@ -153,6 +153,15 @@ class Employee_model extends CI_Model {
         $result = $this->db->get($table_name);
         return $result->result_array();
     }
+    function get_row($table_name, $where_param, $select_param, $group = "", $limit = "") {
+        $this->db->select($select_param);
+        $this->db->where($where_param);
+        $this->db->group_by($group);
+        if (!empty($limit))
+            $this->db->limit($limit);
+        $result = $this->db->get($table_name);
+        return $result->result();
+    }
  
 }
 ?>	

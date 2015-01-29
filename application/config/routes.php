@@ -60,6 +60,9 @@ $route['admin/employee/update/(:any)'] = 'admin_employee/update/$1';
 $route['admin/employee/delete/(:any)'] = 'admin_employee/delete/$1';
 $route['admin/employee/(:any)'] = 'admin_employee/index/$1'; //$1 = page number
 
+$route['admin/employee/editAction'] = 'admin_employee/editAction';
+$route['admin/employee/editAction/(:any)'] = 'admin_employee/editAction/$1';
+
 
 $route['admin/department'] = 'admin_department/index';
 $route['admin/department/add'] = 'admin_department/add';
