@@ -48,6 +48,11 @@ $route['admin/login'] = 'user/index';
 $route['admin/logout'] = 'user/logout';
 $route['admin/login/validate_credentials'] = 'user/validate_credentials';
 
+$route['admin/dashboard'] = 'dashboard/index';
+//$route['admin/v_dashboard'] = 'dashboard/v_dashboard';
+$route['admin/dashboard/editLeave'] = 'dashboard/editLeave';
+$route['admin/dashboard/editLeave/(:any)'] = 'dashboard/editLeave/$1';
+
 $route['admin/employee'] = 'admin_employee/index';
 $route['admin/employee/ajax_data'] = 'admin_employee/ajax_data';
 $route['admin/employee/add'] = 'admin_employee/add';

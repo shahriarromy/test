@@ -32,6 +32,9 @@
 	  <div class="navbar-inner">
 	    <div class="container">
 	      <ul class="nav pull-left">
+                  <li <?php if($this->uri->segment(2) == 'dashboard'){echo 'class="active"';}?>>
+	          <a href="<?php echo base_url(); ?>admin/dashboard">Dashboard</a>
+	        </li>
 	        <li <?php if($this->uri->segment(2) == 'employee'){echo 'class="active"';}?>>
 	          <a href="<?php echo base_url(); ?>admin/employee">Employee</a>
 	        </li>

@@ -589,8 +589,9 @@ class Admin_employee extends CI_Controller {
                 unlink("uploads/employee/" . $employee_pic);
                }
                 //redirect_with_msg('user/user_edit', 'Profile picture updated successfully');
-                        $data['flash_message'] = TRUE;
+                        
                     }
+                    $data['flash_message'] = TRUE;
                     }else {
                         $data['flash_message'] = FALSE;
                     }
