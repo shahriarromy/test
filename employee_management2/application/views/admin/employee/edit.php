@@ -190,6 +190,8 @@ $(document).ready(function(){
     $attributes = array('class' => 'form-horizontal', 'id' => '');
     $options_department = array('' => "Select");
     $options_company = array('' => "Select");
+    $selected_dep =0;
+    $selected = 0;
     foreach ($department as $row) {
         $options_department[$row['id']] = $row['name'];
             if($data[0]['department_id'] == $row['id']){
@@ -635,7 +637,7 @@ $(document).ready(function(){
     </div>
     <fieldset>
         <div class="form-actions">
-            <button class="btn btn-primary" type="submit" onclick="history.go(-1);">Save changes</button>
+            <button class="btn btn-primary" type="submit">Save changes</button>
             <button class="btn" type="reset">Cancel</button>
         </div>
     </fieldset>

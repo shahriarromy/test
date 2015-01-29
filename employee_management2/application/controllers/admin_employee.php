@@ -362,8 +362,8 @@ class Admin_employee extends CI_Controller {
                     'employee_pic' => $_FILES['employee_pic']['name'],
                     'id_no' => $this->input->post('id_no'),
                     'employee_name' => $this->input->post('employee_name'),
-                    'father_name' => $this->input->post('father_name')?$this->input->post('father_name'):'',
-                    'father_contact' => $this->input->post('father_contact')?$this->input->post('father_contact'):0,
+                    'father_name' => $this->input->post('father_name') ? $this->input->post('father_name') : '',
+                    'father_contact' => $this->input->post('father_contact') ? $this->input->post('father_contact') : 0,
                     'mother_name' => $this->input->post('mother_name'),
                     'contact_number' => $this->input->post('contact_number'),
                     'email' => $this->input->post('email'),
@@ -407,12 +407,23 @@ class Admin_employee extends CI_Controller {
                     'short_coming' => $this->input->post('short_coming'),
                 );
                 //if the insert has returned true then we show the flash message
-                if ($this->upload->do_upload('employee_pic')) {
-                    if ($this->employee_model->store_employee($data_to_store)) {
-                        $data['flash_message'] = TRUE;
-                    } else {
-                        $data['flash_message'] = FALSE;
+                if (is_uploaded_file($_FILES['employee_pic']['tmp_name'])) {
+                    $this->img_upload->do_upload('employee_pic');
+                    //if($data)		
+                    $errors = $this->img_upload->display_errors();
+                    if (!empty($errors)) {
+                        redirect_with_msg("user/user_edit", $errors);
                     }
+                    $image_info = $this->img_upload->data();
+                    $employee_pic_new = $image_info ['file_name'];
+                    $data_to_store = array(
+                        'employee_pic' => $employee_pic_new
+                    );
+                }
+
+
+                if ($this->employee_model->store_employee($data_to_store)) {
+                    $data['flash_message'] = TRUE;
                 } else {
                     $data['flash_message'] = FALSE;
                 }
