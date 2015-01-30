@@ -17,7 +17,11 @@
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": false}
+                
 
 
             ]
@@ -110,12 +114,15 @@
             <table border="0" width="100%" cellpadding="0" cellspacing="0" id="employee_list">
                 <thead>
                     <tr>
+                        <th>ID#</th>
                         <th>Company</th>
                         <th>Department</th>
                         <th>Name</th>
                         <th>Picture</th>
                         <th>Designation</th>
                         <th>Contact Number</th>
+                        <th>Last Increment</th>
+                        <th>Increment Amount</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -140,12 +147,15 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th width="10%">ID</th>
                     <th width="10%">Company</th>
                         <th width="10%">Department</th>
                         <th width="10%">Name</th>
                         <th width="10%">Picture</th>
                         <th width="10%">Designation</th>
                         <th width="10%">Contact Number</th> 
+                        <th>Last Increment</th>
+                        <th>Increment Amount</th>
                         <th width="15%"></th>
                     
                 </tr>
