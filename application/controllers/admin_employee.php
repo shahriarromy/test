@@ -195,8 +195,8 @@ class Admin_employee extends CI_Controller {
 
     function ajax_data() {
 
-        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','id');
-        $aColumns_temp = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'action','id');
+        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','last_increment_date','increment_amount','id');
+        $aColumns_temp = array('id_no','company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'last_increment_date','increment_amount','action','id');
 
         $sIndexColumn = "id";
         $sTable = 'v_employee';
@@ -272,9 +272,16 @@ class Admin_employee extends CI_Controller {
             'iTotalDisplayRecords' => $iFilteredTotal,
             'aaData' => array()
         );
+        $i=1;
         foreach ($rResult as $aRow) {
             $row = array();
             foreach ($aColumns_temp as $col) {
+                if ($col == "id_no") {
+                    /* Special output formatting for 'id' */
+                    $row[] = $i;
+                    $i++;
+                    continue;
+                }
                 
                 if ($col == "employee_pic") {
                     /* Special output formatting for 'id' */
@@ -304,7 +311,7 @@ class Admin_employee extends CI_Controller {
 			<tr>
 			
 			<td>
-			<a href='".site_url("admin")."/employee/view/" . $aRow['id'] . "' title='Get Information'><img  width='20' height='20' src='".site_url()."/images/show-menu.png'> </a> <a href='" . site_url("admin")."/employee/update/" . $aRow['id'] . "' title='Edit Employee'><img  width='20' height='20' src='".site_url()."images/edit.jpg'> </a> <a href='javascript:' onclick='delete_employee(" . $aRow['id'] . ");' title='Delete'><img  width='20' height='20' src='".site_url()."images/delete_red.png'> </a>    
+			<a href='".site_url("admin")."/employee/view/" . $aRow['id'] . "' title='Get Information'><img  width='20' height='20' src='".site_url()."/images/show-menu.png'> </a> <a href='" . site_url("admin")."/employee/update/" . $aRow['id'] . "' title='Edit Employee'><img  width='20' height='20' src='".site_url()."images/edit.jpg'> </a>    
 			</td>
 			</tr>
 			</table>
@@ -564,6 +571,8 @@ class Admin_employee extends CI_Controller {
                     'conveyance_allow' => $this->input->post('conveyance_allow'),
                     'misc' => $this->input->post('misc'),
                     'total' => $this->input->post('total'),
+                    'increment_amount' => $this->input->post('increment_amount'),
+                    'last_increment_date' => $this->input->post('last_increment_date'),
                     'appointment_as' => $this->input->post('appointment_as'),
                     'target_given' => $this->input->post('target_given'),
                     'target_achieved' => $this->input->post('target_achieved'),

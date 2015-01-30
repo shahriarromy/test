@@ -479,12 +479,7 @@ $(document).ready(function(){
                 <div class="control-group">
                     <label for="inputError" class="control-label">Target Achieved</label>
                     <div class="controls">
-                        <label class="radio inline">
-                            <input type="radio" id="" name="target_achieved" value="yes"> Yes
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="target_achieved" value="no"> No
-                        </label>
+                        <input type="text" id="" name="target_achieved" value="<?php echo set_value('target_achieved'); ?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -514,7 +509,7 @@ $(document).ready(function(){
         </div>
         <div class="tab-pane" id="leave_record">
             <fieldset>
-                <div class="control-group">
+<!--                <div class="control-group">
                     <label for="inputError" class="control-label">Privileges Leave</label>
                     <div class="controls">
                         <input type="text" id="" name="privileges_leave" value="<?php echo set_value('privileges_leave'); ?>">
@@ -537,7 +532,44 @@ $(document).ready(function(){
                     <div class="controls">
                         <input type="text" id="" name="awol" value="<?php echo set_value('awol'); ?>">
                     </div>
-                </div>
+                </div>-->
+<!--<div class="row">
+    <div class="span*">-->
+<table class="table table-bordered">
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="3">Casual Leave</td>
+        <td colspan="3">Privileged Leave</td>
+        <td colspan="3">Sick Leave</td>
+    </tr>
+    <tr>
+        <td>Year</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+    </tr>
+    <tr>
+        <td>2015</td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+    </tr>
+</table>
+<a href="" class="btn btn-primary">Add year</a>
+<!--    </div>
+</div>-->
             </fieldset>
         </div>
         <div class="tab-pane" id="performance">

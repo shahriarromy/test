@@ -492,6 +492,20 @@ $(document).ready(function(){
                         <input type="text" id="total_salary" name="total" value="<?php echo $data[0]['total']; ?>">
                     </div>
                 </div>
+                
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Increment Amount</label>
+                    <div class="controls">
+                        <input type="text" id="total_salary" name="increment_amount" value="<?php echo $data[0]['increment_amount']; ?>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Last Increment Date</label>
+                    <div class="controls">
+                        <input type="date" name="last_increment_date" value="<?php echo $data[0]['last_increment_date']; ?>">
+                        <!--<span class="help-inline">OOps</span>-->
+                    </div>
+                </div>
             </fieldset>
         </div>
         <div class="tab-pane" id="special_assignment">
@@ -516,12 +530,7 @@ $(document).ready(function(){
                 <div class="control-group">
                     <label for="inputError" class="control-label">Target Achieved</label>
                     <div class="controls">
-                        <label class="radio inline">
-                            <input <?php if ($data[0]['target_achieved'] == "yes") echo 'checked="checked"'; ?> type="radio" id="" name="target_achieved" value="yes"> Yes
-                        </label>
-                        <label class="radio inline">
-                            <input <?php if ($data[0]['target_achieved'] == "no") echo 'checked="checked"'; ?> type="radio" id="" name="target_achieved" value="no"> No
-                        </label>
+                        <input type="text" id="" name="target_achieved" value="<?php echo $data[0]['target_achieved']; ?>">
                     </div>
                 </div>
                 <div class="control-group">
