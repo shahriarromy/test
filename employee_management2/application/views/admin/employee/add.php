@@ -1,39 +1,39 @@
 <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
 <script src="<?php echo site_url(); ?>js/custom.js"></script>
 <script>
-webshims.setOptions('forms-ext', {types: 'date'});
-webshims.polyfill('forms forms-ext');
-$(document).ready(function(){
-    $('#myTab a').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-    });    
-});
-$("input[id*='casual_max']").live('input', function(event) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-});
-$("input[id*='casual_taken']").live('input', function(event) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-});
-    jQuery(document).ready(function(){
-    $('#casual_max, #casual_taken').live('input',function(){
-      var val1 = $("#casual_max").val();
-      var val2 = $("#casual_taken").val();
-      var result= val1-val2;
-      $("#casual_balance").val(result);
+    webshims.setOptions('forms-ext', {types: 'date'});
+    webshims.polyfill('forms forms-ext');
+    $(document).ready(function () {
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
     });
-    $('#privileged_max, #privileged_taken').live('input',function(){
-      var val1 = $("#privileged_max").val();
-      var val2 = $("#privileged_taken").val();
-      var result= val1-val2;
-      $("#privileged_balance").val(result);
+    $("input[id*='casual_max']").live('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
-    $('#sick_max, #sick_taken').live('input',function(){
-      var val1 = $("#sick_max").val();
-      var val2 = $("#sick_taken").val();
-      var result= val1-val2;
-      $("#sick_balance").val(result);
+    $("input[id*='casual_taken']").live('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
+    jQuery(document).ready(function () {
+        $('#casual_max, #casual_taken').live('input', function () {
+            var val1 = $("#casual_max").val();
+            var val2 = $("#casual_taken").val();
+            var result = val1 - val2;
+            $("#casual_balance").val(result);
+        });
+        $('#privileged_max, #privileged_taken').live('input', function () {
+            var val1 = $("#privileged_max").val();
+            var val2 = $("#privileged_taken").val();
+            var result = val1 - val2;
+            $("#privileged_balance").val(result);
+        });
+        $('#sick_max, #sick_taken').live('input', function () {
+            var val1 = $("#sick_max").val();
+            var val2 = $("#sick_taken").val();
+            var result = val1 - val2;
+            $("#sick_balance").val(result);
+        });
     });
 
 </script>
@@ -41,11 +41,11 @@ $("input[id*='casual_taken']").live('input', function(event) {
 <!--company Modal-->
 
 <div id="comModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="comModalLabel" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="comModalLabel">Add a New Company</h3>
-</div>
-<?php
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="comModalLabel">Add a New Company</h3>
+    </div>
+    <?php
     //flash messages
     if (isset($flash_message)) {
         if ($flash_message == TRUE) {
@@ -70,32 +70,32 @@ $("input[id*='casual_taken']").live('input', function(event) {
     echo validation_errors();
 
     echo form_open_multipart('admin/company/add', $attributes);
-?>
-<div class="modal-body">
+    ?>
+    <div class="modal-body">
 
-    <fieldset>
-        <div class="control-group">
-            <label for="inputError" class="control-label">Name</label>
-            <div class="controls">
-                <input type="text" id="" name="name" value="<?php echo set_value('name'); ?>" >
-                <!--<span class="help-inline">Woohoo!</span>-->
+        <fieldset>
+            <div class="control-group">
+                <label for="inputError" class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text" id="" name="name" value="<?php echo set_value('name'); ?>" >
+                    <!--<span class="help-inline">Woohoo!</span>-->
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label for="inputError" class="control-label">Upload Logo</label>
-            <div class="controls">
-                <input type="file" id="" name="company_logo" >
-                <!--<span class="help-inline">Woohoo!</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Upload Logo</label>
+                <div class="controls">
+                    <input type="file" id="" name="company_logo" >
+                    <!--<span class="help-inline">Woohoo!</span>-->
+                </div>
             </div>
-        </div>
-    </fieldset>
-</div>
-<div class="modal-footer">
-    <input type="hidden" name="com_confirm" value="com_confirm">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button class="btn btn-primary" type="submit">Save</button>
-</div>
-<?php echo form_close(); ?>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="com_confirm" value="com_confirm">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+    <?php echo form_close(); ?>
 </div>
 
 <!--company Modal End-->
@@ -103,11 +103,11 @@ $("input[id*='casual_taken']").live('input', function(event) {
 <!--Department Modal-->
 
 <div id="depModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="depModalLabel" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="depModalLabel">Add a New Department</h3>
-</div>
-<?php
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="depModalLabel">Add a New Department</h3>
+    </div>
+    <?php
     //flash messages
     if (isset($flash_message)) {
         if ($flash_message == TRUE) {
@@ -136,32 +136,33 @@ $("input[id*='casual_taken']").live('input', function(event) {
     echo validation_errors();
 
     echo form_open('admin/department/add', $attributes);
-?>
-<div class="modal-body">
-    <fieldset>
-        <div class="control-group">
-            <label for="company_id" class="control-label">Company</label>
-            <div class="controls">
-                <?php //echo form_dropdown('department_id', $options_department, '', 'class="span2"');
+    ?>
+    <div class="modal-body">
+        <fieldset>
+            <div class="control-group">
+                <label for="company_id" class="control-label">Company</label>
+                <div class="controls">
+                    <?php //echo form_dropdown('department_id', $options_department, '', 'class="span2"');
 
-                 echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2"'); ?>
+                    echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2"');
+                    ?>
 
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label for="inputError" class="control-label">Name</label>
-            <div class="controls">
-                <input type="text" id="" name="name" value="<?php echo set_value('name'); ?>" >
-                <!--<span class="help-inline">Woohoo!</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text" id="" name="name" value="<?php echo set_value('name'); ?>" >
+                    <!--<span class="help-inline">Woohoo!</span>-->
+                </div>
             </div>
-        </div>
-    </fieldset>
-</div>
-<div class="modal-footer">
-    <input type="hidden" name="dep_confirm" value="dep_confirm">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button class="btn btn-primary" type="submit">Save</button>
-</div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="dep_confirm" value="dep_confirm">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
 <?php echo form_close(); ?>
 
 </div>
@@ -173,13 +174,13 @@ $("input[id*='casual_taken']").live('input', function(event) {
     <ul class="breadcrumb">
         <li>
             <a href="<?php echo site_url("admin"); ?>">
-                <?php echo ucfirst($this->uri->segment(1)); ?>
+<?php echo ucfirst($this->uri->segment(1)); ?>
             </a> 
             <span class="divider">/</span>
         </li>
         <li>
             <a href="<?php echo site_url("admin") . '/' . $this->uri->segment(2); ?>">
-                <?php echo ucfirst($this->uri->segment(2)); ?>
+<?php echo ucfirst($this->uri->segment(2)); ?>
             </a> 
             <span class="divider">/</span>
         </li>
@@ -214,15 +215,14 @@ $("input[id*='casual_taken']").live('input', function(event) {
     <?php
     //form data
     $attributes = array('class' => 'form-horizontal', 'id' => '');
-    $options_department = array('' => "Select");
+ //   $options_department = array('' => "Select");
+//    foreach ($department as $row) {
+//        $options_department[$row['id']] = $row['name'];
+//    }
     $options_company = array('' => "Select");
-    foreach ($department as $row) {
-        $options_department[$row['id']] = $row['name'];
-    }
     foreach ($company as $val) {
         $options_company[$val['id']] = $val['name'];
     }
-
     //form validation
     echo validation_errors();
 
@@ -232,17 +232,16 @@ $("input[id*='casual_taken']").live('input', function(event) {
         <div class="control-group">
             <label for="company_id" class="control-label">Select Company</label>
             <div class="controls">
-                <?php echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2" onchange="javascript: return change_department($(this).val())"'); ?>
+<?php echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2" onchange="javascript: return change_department($(this).val())"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#comModal">Add</button>
             </div>
         </div>
         <div class="control-group">
             <label for="department_id" class="control-label">Select Department</label>
             <div class="controls">
-                <select name="department_id" class="span2" id="department">
-                    <option value="0">Select</option>
-                </select>
-                <?php //echo form_dropdown('department_id', $options_department, set_value('department_id'), 'class="span2" id="department"'); ?>
+                <?php echo form_dropdown('department_id', $options =array(''=>'Select'), set_value(''), 'class="span2" id="department"'); ?>
+
+<?php //echo form_dropdown('department_id', $options_department, set_value('department_id'), 'class="span2" id="department"');  ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#depModal">Add</button>
             </div>
         </div>
@@ -265,13 +264,6 @@ $("input[id*='casual_taken']").live('input', function(event) {
     <div class="tab-content">
         <div class="tab-pane active" id="personal_info">
             <fieldset>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">ID No.</label>
-                    <div class="controls">
-                        <input type="text" id="" name="id_no" value="<?php echo set_value('id_no'); ?>">
-                        <!--<span class="help-inline">Woohoo!</span>-->
-                    </div>
-                </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Name</label>
                     <div class="controls">
@@ -366,6 +358,13 @@ $("input[id*='casual_taken']").live('input', function(event) {
         </div>
         <div class="tab-pane" id="service_info">
             <fieldset>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">ID No.</label>
+                    <div class="controls">
+                        <input type="text" id="" name="id_no" value="<?php echo set_value('id_no'); ?>">
+                        <!--<span class="help-inline">Woohoo!</span>-->
+                    </div>
+                </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Designation</label>
                     <div class="controls">
@@ -529,16 +528,16 @@ $("input[id*='casual_taken']").live('input', function(event) {
                     <label for="inputError" class="control-label">Personally Equipment Facility</label>
                     <div class="controls">
                         <label class="checkbox inline">
-                            <input type="checkbox" name="personal_equipment" value="Laptop"> Laptop
+                            <input type="checkbox" name="is_laptop" value="Laptop"> Laptop
                         </label>
                         <label class="checkbox inline">
-                            <input type="checkbox" name="personal_equipment" value="Car"> Car
+                            <input type="checkbox" name="is_car" value="Car"> Car
                         </label>
                         <label class="checkbox inline">
-                            <input type="checkbox" name="personal_equipment" value="MC"> MC
+                            <input type="checkbox" name="is_mc" value="MC"> MC
                         </label>
                         <label class="checkbox inline">
-                            <input type="checkbox" name="personal_equipment" value="Fuel"> Fuel
+                            <input type="checkbox" name="is_fuel" value="Fuel"> Fuel
                         </label>
                     </div>
                 </div>
@@ -546,134 +545,110 @@ $("input[id*='casual_taken']").live('input', function(event) {
         </div>
         <div class="tab-pane" id="leave_record">
             <fieldset>
-<!--                <div class="control-group">
-                    <label for="inputError" class="control-label">Privileges Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="privileges_leave" value="<?php echo set_value('privileges_leave'); ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Casual Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="casual_leave" value="<?php echo set_value('casual_leave'); ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Sick Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="sick_leave" value="<?php echo set_value('sick_leave'); ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">AWOL</label>
-                    <div class="controls">
-                        <input type="text" id="" name="awol" value="<?php echo set_value('awol'); ?>">
-                    </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="3">Casual Leave</td>
+                        <td colspan="3">Privileged Leave</td>
+                        <td colspan="3">Sick Leave</td>
+                    </tr>
+                    <tr>
+                        <td>Year</td>
+                        <td>Max Permitted Leave</td>
+                        <td>Leave Taken</td>
+                        <td>Balance Available</td>
+                        <td>Max Permitted Leave</td>
+                        <td>Leave Taken</td>
+                        <td>Balance Available</td>
+                        <td>Max Permitted Leave</td>
+                        <td>Leave Taken</td>
+                        <td>Balance Available</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder=""></td>
+                        <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly"></td>
+                        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder=""></td>
+                        <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly"></td>
+                        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder=""></td>
+                        <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly"></td>
+                    </tr>
+                </table>
+                <a href="javascript:void(0);" class="btn btn-primary">Add year</a>
+                <!--    </div>
                 </div>-->
-<!--<div class="row">
-    <div class="span*">-->
-<table class="table table-bordered">
-    <tr>
-        <td>&nbsp;</td>
-        <td colspan="3">Casual Leave</td>
-        <td colspan="3">Privileged Leave</td>
-        <td colspan="3">Sick Leave</td>
-    </tr>
-    <tr>
-        <td>Year</td>
-        <td>Max Permitted Leave</td>
-        <td>Leave Taken</td>
-        <td>Balance Available</td>
-        <td>Max Permitted Leave</td>
-        <td>Leave Taken</td>
-        <td>Balance Available</td>
-        <td>Max Permitted Leave</td>
-        <td>Leave Taken</td>
-        <td>Balance Available</td>
-    </tr>
-    <tr>
-        <td>2015</td>
-        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder=""></td>
-        <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder=""></td>
-        <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly"></td>
-        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""></td>
-        <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder=""></td>
-        <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly"></td>
-        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder=""></td>
-        <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder=""></td>
-        <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly"></td>
-    </tr>
-</table>
-<a href="" class="btn btn-primary">Add year</a>
-<!--    </div>
-</div>-->
             </fieldset>
         </div>
         <div class="tab-pane" id="performance">
             <fieldset>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Punctuality</label>
-                    <div class="controls">
-                        <label class="radio inline">
-                            <input type="radio" id="" name="punctuality" value="good"> Good
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="punctuality" value="average"> Average
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="punctuality" value="poor"> Poor
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Job Knowledge</label>
-                    <div class="controls">
-                        <label class="radio inline">
-                            <input type="radio" id="" name="job_knowledge" value="good"> Good
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="job_knowledge" value="average"> Average
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="job_knowledge" value="poor"> Poor
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Initiative</label>
-                    <div class="controls">
-                        <label class="radio inline">
-                            <input type="radio" id="" name="initiative" value="good"> Good
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="initiative" value="average"> Average
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="initiative" value="poor"> Poor
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Short coming</label>
-                    <div class="controls">
-                        <label class="radio inline">
-                            <input type="radio" id="" name="short_coming" value="yes"> Yes
-                        </label>
-                        <label class="radio inline">
-                            <input type="radio" id="" name="short_coming" value="no"> No
-                        </label>
-                    </div>
-                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>Punctuality</td>
+                        <td>Job Knowledge</td>
+                        <td>Initiative</td>
+                        <td>Short coming</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="punctuality" value="good"> Good
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="punctuality" value="average"> Average
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="punctuality" value="poor"> Poor
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="job_knowledge" value="good"> Good
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="job_knowledge" value="average"> Average
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="job_knowledge" value="poor"> Poor
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="initiative" value="good"> Good
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="initiative" value="average"> Average
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="initiative" value="poor"> Poor
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="short_coming" value="yes"> Yes
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" id="" name="short_coming" value="no"> No
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <a href="javascript:void(0);" class="btn btn-primary">Add year</a>
             </fieldset>
         </div>
     </div>
     <fieldset>
         <div class="form-actions">
-            <button class="btn btn-primary" type="submit" onclick="history.go(-1);return true;">Save changes</button>
+            <button class="btn btn-primary" type="submit" onclick="history.go(-1);
+                    return true;">Save changes</button>
             <button class="btn" type="reset">Cancel</button>
         </div>
     </fieldset>
 
-    <?php echo form_close(); ?>
+<?php echo form_close(); ?>
 
 </div>
