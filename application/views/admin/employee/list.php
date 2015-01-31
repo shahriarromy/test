@@ -12,36 +12,34 @@
             "sPaginationType": "full_numbers",
             "sDom": 'T<"clear">lfrtip',
             "oTableTools": {
-            "sSwfPath": site_url+"js/swf/copy_csv_xls_pdf.swf",
-            "aButtons": [
-            "copy",
-            "csv",
-            "xls",
-            {
-                "sExtends": "pdf",
-                "sTitle": "Report Name",
-                "sPdfMessage": "Summary Info",
-                "sPdfOrientation": "landscape",
-                "fnClick": function (nButton, oConfig, flash) {
-                    customName = 'employeelist' + ".pdf";
-                    flash.setFileName(customName);
-                    this.fnSetText(flash,
-                        "title:" + 'Name Of Company: Rangs Ltd' + "\n" +
-                        "message:" + 'Employee List' + "\n" +
-                        "colWidth:" + this.fnCalcColRatios(oConfig) + "\n" +
-                        "orientation:" + oConfig.sPdfOrientation + "\n" +
-                        "size:" + oConfig.sPdfSize + "\n" +
-                        "--/TableToolsOpts--\n" +
-                        this.fnGetTableData(oConfig)
-                        );
-                }
+                "sSwfPath": site_url + "js/swf/copy_csv_xls_pdf.swf",
+                "aButtons": [
+                    "copy",
+                    "csv",
+                    "xls",
+                    {
+                        "sExtends": "pdf",
+                        "sTitle": "Report Name",
+                        "sPdfMessage": "Summary Info",
+                        "sPdfOrientation": "landscape",
+                        "fnClick": function (nButton, oConfig, flash) {
+                            customName = 'employeelist' + ".pdf";
+                            flash.setFileName(customName);
+                            this.fnSetText(flash,
+                                    "title:" + 'Name Of Company: Rangs Ltd' + "\n" +
+                                    "message:" + 'Employee List' + "\n" +
+                                    "colWidth:" + this.fnCalcColRatios(oConfig) + "\n" +
+                                    "orientation:" + oConfig.sPdfOrientation + "\n" +
+                                    "size:" + oConfig.sPdfSize + "\n" +
+                                    "--/TableToolsOpts--\n" +
+                                    this.fnGetTableData(oConfig)
+                                    );
+                        }
+                    },
+                    "print"
+                ]
             },
-            "print"
-            ]
-        },
-        
-            
-        //"sDom": '<"clear">T<"H"Cr><"clear">lfrt<"F"ip>',
+            //"sDom": '<"clear">T<"H"Cr><"clear">lfrt<"F"ip>',
             "aoColumns": [
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
@@ -54,26 +52,26 @@
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": false}
-                
+
 
 
             ]
         }).columnFilter();
     });
-    
-    function delete_employee(item_id){
-        if(!confirm("Sure to delete??")){
+
+    function delete_employee(item_id) {
+        if (!confirm("Sure to delete??")) {
             return false;
         }
-        url = "employee/delete/"+item_id;
-        postData = {"id":item_id}
-        $.post(url,postData,
-        function(data){
-            alert('Success');
-            window.location.href = "employee";
-        }
-        ,"text"
-        );
+        url = "employee/delete/" + item_id;
+        postData = {"id": item_id}
+        $.post(url, postData,
+                function (data) {
+                    alert('Success');
+                    window.location.href = "employee";
+                }
+        , "text"
+                );
     }
 </script>
 
@@ -82,18 +80,18 @@
     <ul class="breadcrumb">
         <li>
             <a href="<?php echo site_url("admin"); ?>">
-                <?php echo ucfirst($this->uri->segment(1)); ?>
+<?php echo ucfirst($this->uri->segment(1)); ?>
             </a> 
             <span class="divider">/</span>
         </li>
         <li class="active">
-            <?php echo ucfirst($this->uri->segment(2)); ?>
+<?php echo ucfirst($this->uri->segment(2)); ?>
         </li>
     </ul>
 
     <div class="page-header users-header">
         <h2>
-            <?php echo ucfirst($this->uri->segment(2)); ?> 
+<?php echo ucfirst($this->uri->segment(2)); ?> 
             <a  href="<?php echo site_url("admin") . '/' . $this->uri->segment(2); ?>/add" class="btn btn-success">Add new Employee</a>
         </h2>
     </div>
@@ -102,7 +100,7 @@
         <div class="span12 columns">
             <!--          <div class="well">
                        
-            <?php
+<?php
 //            $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
 //           
 //            $options_department = array(0 => "all");
@@ -138,30 +136,30 @@
 //              echo form_submit($data_submit);
 //
 //            echo form_close();
-            ?>
+?>
             
                       </div>-->
-<div id="content-table-inner clearfix">
+            <div id="content-table-inner clearfix">
 
-    <div id="table-content">
-            <table border="0" width="100%" cellpadding="0" cellspacing="0" id="employee_list">
-                <thead>
-                    <tr>
-                        <th>ID#</th>
-                        <th>Company</th>
-                        <th>Department</th>
-                        <th>Name</th>
-                        <th>Picture</th>
-                        <th>Designation</th>
-                        <th>Contact Number</th>
-                        <th>Last Increment</th>
-                        <th>Increment Amount</th>
-                        <th>Is Active?</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--              <?php
+                <div id="table-content">
+                    <table border="0" width="100%" cellpadding="0" cellspacing="0" id="employee_list">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Company</th>
+                                <th>Department</th>
+                                <th>Name</th>
+                                <th>Picture</th>
+                                <th>Designation</th>
+                                <th>Contact Number</th>
+                                <th>Last Increment</th>
+                                <th>Increment Amount</th>
+                                <th>Is Active?</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--              <?php
 //              foreach($employee as $row)
 //              {
 //                echo '<tr>';
@@ -177,29 +175,13 @@
 //                </td>';
 //                echo '</tr>';
 //              }
-            ?>      -->
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th width="10%">ID</th>
-                    <th width="10%">Company</th>
-                        <th width="10%">Department</th>
-                        <th width="10%">Name</th>
-                        <th width="10%">Picture</th>
-                        <th width="10%">Designation</th>
-                        <th width="10%">Contact Number</th> 
-                        <th>Last Increment</th>
-                        <th>Increment Amount</th>
-                        <th>Active Status</th>
-                        <th width="15%"></th>
-                    
-                </tr>
-            </tfoot>
-            </table>
+?>      -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-<?php //echo '<div class="pagination">'.$this->pagination->create_links().'</div>';  ?>
+<?php //echo '<div class="pagination">'.$this->pagination->create_links().'</div>';   ?>
 
         </div>
     </div>

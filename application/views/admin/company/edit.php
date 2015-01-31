@@ -56,16 +56,19 @@
             <label for="inputError" class="control-label">Description</label>
             <div class="controls">
                 <input type="text" id="" name="name" value="<?php echo $company[0]['name']; ?>" >
-                <!--<span class="help-inline">Woohoo!</span>-->
             </div>
         </div>
         <div class="control-group">
-            <img src="<?php echo site_url(); ?>uploads/company/<?php echo $company[0]['company_logo'] ?>">
-            <label for="inputError" class="control-label">Upload Logo</label>
+            <label for="inputError" class="control-label">Previously Uploaded Logo</label>
+            <div class="controls">
+                <img src="<?php echo site_url(); ?>uploads/company/<?php echo $company[0]['company_logo'] ?>">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="inputError" class="control-label">Upload New Logo</label>
             <div class="controls">
                 <input type="hidden" name="old_file" value="<?php echo $company[0]['company_logo'] ?>"/>
                 <input type="file" id="" name="company_logo" >
-                <!--<span class="help-inline">Woohoo!</span>-->
             </div>
         </div>
         <div class="form-actions">
@@ -73,7 +76,5 @@
             <button class="btn" type="reset" onclick="history.go(-1);return true;">Cancel</button>
         </div>
     </fieldset>
-
     <?php echo form_close(); ?>
-
 </div>

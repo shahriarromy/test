@@ -183,12 +183,30 @@ class Admin_employee extends CI_Controller {
         $this->load->view('includes/template', $data);
     }
     
-    function view($id){
+    function view($id,$is_pdf = false){
         $data['employee']=$this->employee_model->get_employee_by_id($id);
+        $data['leave']=$this->employee_model->get_leave_info($id);
         $data['dep_com']=$this->employee_model->get_employee($data['employee'][0]['department_id'],$data['employee'][0]['company_id']);
            //load the view
+        if ($is_pdf) {
+            $pdfFilePath = base_url() . "downloads/reports/testing.pdf";
+            $data['page_title'] = 'Employee Information'; // pass data to the view
+            $data['pdf_view'] = 1;
+
+            //if (file_exists($pdfFilePath) == FALSE) {
+            ini_set('memory_limit', '32M'); // boost the memory limit if it's low <img src="https://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+            $data['main_content'] = 'admin/employee/view';
+            $html = $this->load->view('v_details_pdf', $data, true); // render the view into HTML
+
+            $this->load->library('mpdf_lib');
+            $this->mpdf_lib->SetFooter($_SERVER['HTTP_HOST'] . '|{PAGENO}|' . date(DATE_RFC822)); // Add a footer for good measure <img src="https://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+            $this->mpdf_lib->WriteHTML($html); // write the HTML into the PDF
+            $this->mpdf_lib->Output(); // save to file because we can
+            //}
+        } else {
         $data['main_content'] = 'admin/employee/view';
         $this->load->view('includes/template', $data);
+        }
     }
 
 //index
@@ -331,10 +349,10 @@ class Admin_employee extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             //form validation
-            // $this->form_validation->set_rules('company_id', 'company_id', 'required');
-            // $this->form_validation->set_rules('department_id', 'department_id', 'required');
-            // $this->form_validation->set_rules('id_no', 'id_no', 'required');
-            $this->form_validation->set_rules('employee_name', 'employee_name', 'required');
+             $this->form_validation->set_rules('company_id', 'Company', 'required');
+             $this->form_validation->set_rules('department_id', 'Department', 'required');
+             $this->form_validation->set_rules('employee_name', 'Employee Name', 'required');
+
             // $this->form_validation->set_rules('designation', 'designation', 'required');
             // $this->form_validation->set_rules('qualification', 'qualification', 'required');
             // $this->form_validation->set_rules('joining_date', 'joining_date', 'required');
@@ -403,7 +421,10 @@ class Admin_employee extends CI_Controller {
                     'target_given' => $this->input->post('target_given'),
                     'target_achieved' => $this->input->post('target_achieved'),
                     'liability_recovery' => $this->input->post('liability_recovery'),
-                    'personal_equipment' => $this->input->post('personal_equipment'),
+                    'is_laptop' => $this->input->post('is_laptop'),
+                    'is_car' => $this->input->post('is_car'),
+                    'is_mc' => $this->input->post('is_mc'),
+                    'is_fuel' => $this->input->post('is_fuel'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
@@ -501,8 +522,6 @@ class Admin_employee extends CI_Controller {
         $data['leave'] = $this->employee_model->get_leave_info($id);
         $data['department'] = $this->department_model->get_department();
         $data['company'] = $this->company_model->get_company();
-//        $data['company'] = $this->company_model->get_company();
-//        $data['department'] = $this->department_model->get_department();
         //load the view
         $data['main_content'] = 'admin/employee/edit';
         $this->load->view('includes/template', $data);
@@ -586,7 +605,10 @@ class Admin_employee extends CI_Controller {
                     'target_given' => $this->input->post('target_given'),
                     'target_achieved' => $this->input->post('target_achieved'),
                     'liability_recovery' => $this->input->post('liability_recovery'),
-                    'personal_equipment' => $this->input->post('personal_equipment'),
+                    'is_laptop' => $this->input->post('is_laptop'),
+                    'is_car' => $this->input->post('is_car'),
+                    'is_mc' => $this->input->post('is_mc'),
+                    'is_fuel' => $this->input->post('is_fuel'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
