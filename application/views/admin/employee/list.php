@@ -20,6 +20,7 @@
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": false}
                 
 
@@ -123,6 +124,7 @@
                         <th>Contact Number</th>
                         <th>Last Increment</th>
                         <th>Increment Amount</th>
+                        <th>Active Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -156,6 +158,7 @@
                         <th width="10%">Contact Number</th> 
                         <th>Last Increment</th>
                         <th>Increment Amount</th>
+                        <th>Active Status</th>
                         <th width="15%"></th>
                     
                 </tr>

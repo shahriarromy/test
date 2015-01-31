@@ -23,10 +23,11 @@ class Employee_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array(); 
     }
-    public function get_leave_info()
+    public function get_leave_info($id)
     {
 		$this->db->select('*');
 		$this->db->from('leave');
+                $this->db->where('id', $id);
 		//$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result_array(); 
@@ -141,10 +142,15 @@ class Employee_model extends CI_Model {
 			return false;
 		}
 	}
-        
-            function update_leave($data)
+            function store_leave($data)
     {
-		//$this->db->where('id', $id);
+		$insert = $this->db->insert('leave', $data);
+	    return $insert;
+	}
+        
+            function update_leave($id,$data)
+    {
+		$this->db->where('id', $id);
 		$this->db->update('leave', $data);
 		$report = array();
 		$report['error'] = $this->db->_error_number();

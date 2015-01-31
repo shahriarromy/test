@@ -195,8 +195,8 @@ class Admin_employee extends CI_Controller {
 
     function ajax_data() {
 
-        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','last_increment_date','increment_amount','id');
-        $aColumns_temp = array('id_no','company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'last_increment_date','increment_amount','action','id');
+        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','last_increment_date','increment_amount','is_active','id');
+        $aColumns_temp = array('id_no','company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'last_increment_date','increment_amount','is_active','action','id');
 
         $sIndexColumn = "id";
         $sTable = 'v_employee';
@@ -404,14 +404,11 @@ class Admin_employee extends CI_Controller {
                     'target_achieved' => $this->input->post('target_achieved'),
                     'liability_recovery' => $this->input->post('liability_recovery'),
                     'personal_equipment' => $this->input->post('personal_equipment'),
-                    'privileges_leave' => $this->input->post('privileges_leave'),
-                    'casual_leave' => $this->input->post('casual_leave'),
-                    'sick_leave' => $this->input->post('sick_leave'),
-                    'awol' => $this->input->post('awol'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
                     'short_coming' => $this->input->post('short_coming'),
+                    'is_active' => $this->input->post('is_active'),
                 );
                 //if the insert has returned true then we show the flash message
                 if (is_uploaded_file($_FILES['employee_pic']['tmp_name'])) {
@@ -423,13 +420,24 @@ class Admin_employee extends CI_Controller {
                     }
                     $image_info = $this->img_upload->data();
                     $employee_pic_new = $image_info ['file_name'];
-                    $data_to_store = array(
-                        'employee_pic' => $employee_pic_new
-                    );
+                    $data_to_store['employee_pic'] = $employee_pic_new;
                 }
 
-
-                if ($this->employee_model->store_employee($data_to_store)) {
+                    $employee_id=$this->employee_model->store_employee($data_to_store);
+                if ($employee_id) {
+                    $leave=array(
+                        'id'=>$employee_id,
+                        'casual_max'=> $this->input->post('casual_max'),
+                        'casual_taken'=> $this->input->post('casual_taken'),
+                        'casual_balance'=> $this->input->post('casual_balance'),
+                        'privileged_max'=> $this->input->post('privileged_max'),
+                        'privileged_taken'=> $this->input->post('privileged_taken'),
+                        'privileged_balance'=> $this->input->post('privileged_balance'),
+                        'sick_max'=> $this->input->post('sick_max'),
+                        'sick_taken'=> $this->input->post('sick_taken'),
+                        'sick_balance'=> $this->input->post('sick_balance'),
+                    );
+                    $this->employee_model->store_leave($leave);
                     $data['flash_message'] = TRUE;
                 } else {
                     $data['flash_message'] = FALSE;
@@ -490,6 +498,7 @@ class Admin_employee extends CI_Controller {
         //employee data
         //fetch department data to populate the select field
         $data['data'] = $this->employee_model->get_employee_by_id($id);
+        $data['leave'] = $this->employee_model->get_leave_info($id);
         $data['department'] = $this->department_model->get_department();
         $data['company'] = $this->company_model->get_company();
 //        $data['company'] = $this->company_model->get_company();
@@ -578,14 +587,11 @@ class Admin_employee extends CI_Controller {
                     'target_achieved' => $this->input->post('target_achieved'),
                     'liability_recovery' => $this->input->post('liability_recovery'),
                     'personal_equipment' => $this->input->post('personal_equipment'),
-                    'privileges_leave' => $this->input->post('privileges_leave'),
-                    'casual_leave' => $this->input->post('casual_leave'),
-                    'sick_leave' => $this->input->post('sick_leave'),
-                    'awol' => $this->input->post('awol'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
                     'short_coming' => $this->input->post('short_coming'),
+                    'is_active' => $this->input->post('is_active'),
                 );
                 
                 if (is_uploaded_file($_FILES['employee_pic']['tmp_name'])) {
@@ -611,6 +617,18 @@ class Admin_employee extends CI_Controller {
                 //redirect_with_msg('user/user_edit', 'Profile picture updated successfully');
                         
                     }
+                    $leave=array(
+                        'casual_max'=> $this->input->post('casual_max'),
+                        'casual_taken'=> $this->input->post('casual_taken'),
+                        'casual_balance'=> $this->input->post('casual_balance'),
+                        'privileged_max'=> $this->input->post('privileged_max'),
+                        'privileged_taken'=> $this->input->post('privileged_taken'),
+                        'privileged_balance'=> $this->input->post('privileged_balance'),
+                        'sick_max'=> $this->input->post('sick_max'),
+                        'sick_taken'=> $this->input->post('sick_taken'),
+                        'sick_balance'=> $this->input->post('sick_balance'),
+                    );
+                    $this->employee_model->update_leave($this->input->post('employee_id'),$leave);
                     $data['flash_message'] = TRUE;
                     }else {
                         $data['flash_message'] = FALSE;
