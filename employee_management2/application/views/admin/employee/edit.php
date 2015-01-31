@@ -9,6 +9,32 @@ $(document).ready(function(){
     $(this).tab('show');
     });    
 });
+$("input[id*='casual_max']").live('input', function(event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+$("input[id*='casual_taken']").live('input', function(event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+    jQuery(document).ready(function(){
+    $('#casual_max, #casual_taken').live('input',function(){
+      var val1 = $("#casual_max").val();
+      var val2 = $("#casual_taken").val();
+      var result= val1-val2;
+      $("#casual_balance").val(result);
+    });
+    $('#privileged_max, #privileged_taken').live('input',function(){
+      var val1 = $("#privileged_max").val();
+      var val2 = $("#privileged_taken").val();
+      var result= val1-val2;
+      $("#privileged_balance").val(result);
+    });
+    $('#sick_max, #sick_taken').live('input',function(){
+      var val1 = $("#sick_max").val();
+      var val2 = $("#sick_taken").val();
+      var result= val1-val2;
+      $("#sick_balance").val(result);
+    });
+    });
 
 </script>
 
@@ -422,6 +448,17 @@ $(document).ready(function(){
                         <input type="text" id="" name="penalty" value="<?php echo $data[0]['penalty']; ?>">
                     </div>
                 </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Is Active?</label>
+                    <div class="controls">
+                        <label class="radio inline">
+                            <input <?php if ($data[0]['is_active'] == "yes") echo 'checked="checked"'; ?> type="radio" id="" name="is_active" value="yes"> Yes
+                        </label>
+                        <label class="radio inline">
+                            <input <?php if ($data[0]['is_active'] == "no") echo 'checked="checked"'; ?> type="radio" id="" name="is_active" value="no"> No
+                        </label>
+                    </div>
+                </div>
             </fieldset>
         </div>
         <div class="tab-pane" id="Salary_details">
@@ -560,30 +597,39 @@ $(document).ready(function(){
         </div>
         <div class="tab-pane" id="leave_record">
             <fieldset>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Privileges Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="privileges_leave" value="<?php echo $data[0]['privileges_leave']; ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Casual Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="casual_leave" value="<?php echo $data[0]['casual_leave']; ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Sick Leave</label>
-                    <div class="controls">
-                        <input type="text" id="" name="sick_leave" value="<?php echo $data[0]['sick_leave']; ?>">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" class="control-label">AWOL</label>
-                    <div class="controls">
-                        <input type="text" id="" name="awol" value="<?php echo $data[0]['awol']; ?>">
-                    </div>
-                </div>
+                <table class="table table-bordered">
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="3">Casual Leave</td>
+        <td colspan="3">Privileged Leave</td>
+        <td colspan="3">Sick Leave</td>
+    </tr>
+    <tr>
+        <td>Year</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+        <td>Max Permitted Leave</td>
+        <td>Leave Taken</td>
+        <td>Balance Available</td>
+    </tr>
+    <tr>
+        <td>2015</td>
+        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder="" value="<?php echo $leave[0]['casual_max']; ?>"></td>
+        <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder="" value="<?php echo $leave[0]['casual_taken']; ?>"></td>
+        <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['casual_balance']; ?>"></td>
+        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""value="<?php echo $leave[0]['privileged_max']; ?>"></td>
+        <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder="" value="<?php echo $leave[0]['privileged_taken']; ?>"></td>
+        <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['privileged_balance']; ?>"></td>
+        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder="" value="<?php echo $leave[0]['sick_max']; ?>"></td>
+        <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder="" value="<?php echo $leave[0]['sick_taken']; ?>"></td>
+        <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['sick_balance']; ?>"></td>
+    </tr>
+</table>
+<a href="" class="btn btn-primary">Add year</a>
             </fieldset>
         </div>
         <div class="tab-pane" id="performance">

@@ -9,6 +9,32 @@ $(document).ready(function(){
     $(this).tab('show');
     });    
 });
+$("input[id*='casual_max']").live('input', function(event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+$("input[id*='casual_taken']").live('input', function(event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+    jQuery(document).ready(function(){
+    $('#casual_max, #casual_taken').live('input',function(){
+      var val1 = $("#casual_max").val();
+      var val2 = $("#casual_taken").val();
+      var result= val1-val2;
+      $("#casual_balance").val(result);
+    });
+    $('#privileged_max, #privileged_taken').live('input',function(){
+      var val1 = $("#privileged_max").val();
+      var val2 = $("#privileged_taken").val();
+      var result= val1-val2;
+      $("#privileged_balance").val(result);
+    });
+    $('#sick_max, #sick_taken').live('input',function(){
+      var val1 = $("#sick_max").val();
+      var val2 = $("#sick_taken").val();
+      var result= val1-val2;
+      $("#sick_balance").val(result);
+    });
+    });
 
 </script>
 
@@ -385,6 +411,17 @@ $(document).ready(function(){
                         <input type="text" id="" name="penalty" value="<?php echo set_value('penalty'); ?>">
                     </div>
                 </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Is Active?</label>
+                    <div class="controls">
+                        <label class="radio inline">
+                            <input type="radio" id="" name="is_active" value="yes"> Yes
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" id="" name="is_active" value="no"> No
+                        </label>
+                    </div>
+                </div>
             </fieldset>
         </div>
         <div class="tab-pane" id="Salary_details">
@@ -556,15 +593,15 @@ $(document).ready(function(){
     </tr>
     <tr>
         <td>2015</td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
-        <td><input type="text" class="span1" name="" id="" placeholder=""></td>
+        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder=""></td>
+        <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder=""></td>
+        <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly"></td>
+        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""></td>
+        <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder=""></td>
+        <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly"></td>
+        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder=""></td>
+        <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder=""></td>
+        <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly"></td>
     </tr>
 </table>
 <a href="" class="btn btn-primary">Add year</a>
