@@ -120,8 +120,8 @@ class Employee_model extends CI_Model {
     */
     function store_employee($data)
     {
-		$insert = $this->db->insert('employee', $data);
-	    return $insert;
+		$this->db->insert('employee', $data);
+	    return $this->db->insert_id();
 	}
 
     /**
@@ -150,7 +150,7 @@ class Employee_model extends CI_Model {
         
             function update_leave($id,$data)
     {
-		$this->db->where('id', $id);
+		$this->db->where('employee_id', $id);
 		$this->db->update('leave', $data);
 		$report = array();
 		$report['error'] = $this->db->_error_number();

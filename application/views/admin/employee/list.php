@@ -10,6 +10,38 @@
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "aaSorting": [[0, 'asc']],
             "sPaginationType": "full_numbers",
+            "sDom": 'T<"clear">lfrtip',
+            "oTableTools": {
+            "sSwfPath": site_url+"js/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+            "copy",
+            "csv",
+            "xls",
+            {
+                "sExtends": "pdf",
+                "sTitle": "Report Name",
+                "sPdfMessage": "Summary Info",
+                "sPdfOrientation": "landscape",
+                "fnClick": function (nButton, oConfig, flash) {
+                    customName = 'employeelist' + ".pdf";
+                    flash.setFileName(customName);
+                    this.fnSetText(flash,
+                        "title:" + 'Name Of Company: Rangs Ltd' + "\n" +
+                        "message:" + 'Employee List' + "\n" +
+                        "colWidth:" + this.fnCalcColRatios(oConfig) + "\n" +
+                        "orientation:" + oConfig.sPdfOrientation + "\n" +
+                        "size:" + oConfig.sPdfSize + "\n" +
+                        "--/TableToolsOpts--\n" +
+                        this.fnGetTableData(oConfig)
+                        );
+                }
+            },
+            "print"
+            ]
+        },
+        
+            
+        //"sDom": '<"clear">T<"H"Cr><"clear">lfrt<"F"ip>',
             "aoColumns": [
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
@@ -124,7 +156,7 @@
                         <th>Contact Number</th>
                         <th>Last Increment</th>
                         <th>Increment Amount</th>
-                        <th>Active Status</th>
+                        <th>Is Active?</th>
                         <th>Action</th>
                     </tr>
                 </thead>

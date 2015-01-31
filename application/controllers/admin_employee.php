@@ -426,16 +426,16 @@ class Admin_employee extends CI_Controller {
                     $employee_id=$this->employee_model->store_employee($data_to_store);
                 if ($employee_id) {
                     $leave=array(
-                        'id'=>$employee_id,
-                        'casual_max'=> $this->input->post('casual_max'),
-                        'casual_taken'=> $this->input->post('casual_taken'),
-                        'casual_balance'=> $this->input->post('casual_balance'),
-                        'privileged_max'=> $this->input->post('privileged_max'),
-                        'privileged_taken'=> $this->input->post('privileged_taken'),
-                        'privileged_balance'=> $this->input->post('privileged_balance'),
-                        'sick_max'=> $this->input->post('sick_max'),
-                        'sick_taken'=> $this->input->post('sick_taken'),
-                        'sick_balance'=> $this->input->post('sick_balance'),
+                        'employee_id'=>$employee_id,
+                        'casual_max'=> $this->input->post('casual_max') ?$this->input->post('casual_max'):0,
+                        'casual_taken'=> $this->input->post('casual_taken')?$this->input->post('casual_taken'):0,
+                        'casual_balance'=> $this->input->post('casual_balance')?$this->input->post('casual_balance'):0,
+                        'privileged_max'=> $this->input->post('privileged_max')?$this->input->post('privileged_max'):0,
+                        'privileged_taken'=> $this->input->post('privileged_taken')?$this->input->post('privileged_taken'):0,
+                        'privileged_balance'=> $this->input->post('privileged_balance')?$this->input->post('privileged_balance'):0,
+                        'sick_max'=> $this->input->post('sick_max')? $this->input->post('sick_max') :0,
+                        'sick_taken'=> $this->input->post('sick_taken')?$this->input->post('sick_taken'):0,
+                        'sick_balance'=> $this->input->post('sick_balance')?$this->input->post('sick_balance'):0,
                     );
                     $this->employee_model->store_leave($leave);
                     $data['flash_message'] = TRUE;
@@ -618,15 +618,15 @@ class Admin_employee extends CI_Controller {
                         
                     }
                     $leave=array(
-                        'casual_max'=> $this->input->post('casual_max'),
-                        'casual_taken'=> $this->input->post('casual_taken'),
-                        'casual_balance'=> $this->input->post('casual_balance'),
-                        'privileged_max'=> $this->input->post('privileged_max'),
-                        'privileged_taken'=> $this->input->post('privileged_taken'),
-                        'privileged_balance'=> $this->input->post('privileged_balance'),
-                        'sick_max'=> $this->input->post('sick_max'),
-                        'sick_taken'=> $this->input->post('sick_taken'),
-                        'sick_balance'=> $this->input->post('sick_balance'),
+                        'casual_max'=> $this->input->post('casual_max') ?$this->input->post('casual_max'):0,
+                        'casual_taken'=> $this->input->post('casual_taken')?$this->input->post('casual_taken'):0,
+                        'casual_balance'=> $this->input->post('casual_balance')?$this->input->post('casual_balance'):0,
+                        'privileged_max'=> $this->input->post('privileged_max')?$this->input->post('privileged_max'):0,
+                        'privileged_taken'=> $this->input->post('privileged_taken')?$this->input->post('privileged_taken'):0,
+                        'privileged_balance'=> $this->input->post('privileged_balance')?$this->input->post('privileged_balance'):0,
+                        'sick_max'=> $this->input->post('sick_max')? $this->input->post('sick_max') :0,
+                        'sick_taken'=> $this->input->post('sick_taken')?$this->input->post('sick_taken'):0,
+                        'sick_balance'=> $this->input->post('sick_balance')?$this->input->post('sick_balance'):0,
                     );
                     $this->employee_model->update_leave($this->input->post('employee_id'),$leave);
                     $data['flash_message'] = TRUE;

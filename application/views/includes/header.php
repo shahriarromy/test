@@ -12,7 +12,7 @@
         <link href="<?php echo base_url(); ?>css/datatable_table.css" rel="stylesheet" type="text/css">
         <!--link href="<?php //echo base_url();  ?>css/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css"-->
         <link href="<?php echo base_url(); ?>css/demo_table_jui.css" rel="stylesheet" type="text/css">
-
+        <link href="<?php echo base_url(); ?>css/dataTables.tableTools.css" rel="stylesheet" type="text/css">
         <!--data table js-->
         <script src="<?php echo base_url(); ?>js/jquery-1.7.1.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -20,11 +20,16 @@
         <script src="<?php echo base_url(); ?>js/jquery.dataTables.delay.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/jquery.jeditable.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>js/jquery-ui.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
-        
+       <script src="<?php echo base_url(); ?>js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>>
+        <script src="<?php echo base_url(); ?>js/TableTools.js" type="text/javascript"></script>
+<!--        <script src="<?php echo base_url(); ?>js/dataTables.tableTools.js" type="text/javascript"></script>-->
+        <script src="<?php echo base_url(); ?>js/ZeroClipboard.js" type="text/javascript"></script>
 
 
+<script type="text/javascript">
+        var site_url = "http://localhost/employee_management2/";
 
+    </script>
 
     </head>
 <body>
