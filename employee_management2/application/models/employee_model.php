@@ -52,6 +52,7 @@ class Employee_model extends CI_Model {
 		$this->db->select('employee.company_id');
 		$this->db->select('department.name as department_name');
 		$this->db->select('company.name as company_name');
+		$this->db->select('company.company_logo as company_logo');
 		$this->db->from('employee');
 		if($department_id != null && $department_id != 0){
 			$this->db->where('department.id', $department_id);

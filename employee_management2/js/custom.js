@@ -14,13 +14,13 @@ function change_department(value) {
 
     $.ajax({
         type: "POST",
-        url: "get_change_value/" + value,
+        url: site_url+"admin/employee/get_change_value/" + value,
         dataType: "JSON",
         success: function (data) {
             //  data = JSON.parse(data)
             var str = '<option value="0">Select</option>';
             $(data).each(function (i, v) {
-                //alert(v.name);
+//                alert(v.name);
                 str += '<option value="'+ v.id +'">' + v.name + '</option>';
             });
             $('#department').html(str);

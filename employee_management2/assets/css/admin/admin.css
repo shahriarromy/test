@@ -52,6 +52,7 @@ body {
     background-repeat: no-repeat;
     background-position: center top;
     background-size: 100%;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 body.login #footer hr {

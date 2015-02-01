@@ -277,7 +277,10 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
+tr.odd td,
+tr.even td {
+	padding: 5px 0px;
+}
 tr.odd {
 	background-color: #E2E4FF;
 }

@@ -259,7 +259,7 @@ class Admin_employee extends CI_Controller {
             $sWhere = substr_replace($sWhere, "", -3);
         }
         /* Individual column filtering */
-        for ($i = 0; $i < count($aColumns); $i++) {
+        for ($i = 0; $i < count($aColumns_temp); $i++) {
             if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
                 if ($sWhere != "") {
                     $sWhere .= " AND ";
@@ -267,7 +267,7 @@ class Admin_employee extends CI_Controller {
                 /* else {
                   $sWhere .= " AND ";
                   } */
-                $sWhere .= $aColumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' "; //mysql_real_escape_string($_GET['sSearch_' . $i])
+                $sWhere .= $aColumns_temp[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' "; //mysql_real_escape_string($_GET['sSearch_' . $i])
             }
         }
 
@@ -350,8 +350,8 @@ class Admin_employee extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             //form validation
              $this->form_validation->set_rules('company_id', 'Company', 'required');
-             $this->form_validation->set_rules('department_id', 'Department', 'required');
-             $this->form_validation->set_rules('employee_name', 'Employee Name', 'required');
+//             $this->form_validation->set_rules('department_id', 'Department', 'required');
+//             $this->form_validation->set_rules('employee_name', 'Employee Name', 'required');
 
             // $this->form_validation->set_rules('designation', 'designation', 'required');
             // $this->form_validation->set_rules('qualification', 'qualification', 'required');
@@ -425,6 +425,7 @@ class Admin_employee extends CI_Controller {
                     'is_car' => $this->input->post('is_car'),
                     'is_mc' => $this->input->post('is_mc'),
                     'is_fuel' => $this->input->post('is_fuel'),
+                    'other_equipment' => $this->input->post('other_equipment'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
@@ -520,7 +521,7 @@ class Admin_employee extends CI_Controller {
         //fetch department data to populate the select field
         $data['data'] = $this->employee_model->get_employee_by_id($id);
         $data['leave'] = $this->employee_model->get_leave_info($id);
-        $data['department'] = $this->department_model->get_department();
+        $data['department'] = $this->department_model->get_department_by_company_id($data['data'][0]['company_id']);
         $data['company'] = $this->company_model->get_company();
         //load the view
         $data['main_content'] = 'admin/employee/edit';
@@ -532,7 +533,7 @@ class Admin_employee extends CI_Controller {
             // $this->form_validation->set_rules('company_id', 'company_id', 'required');
             // $this->form_validation->set_rules('department_id', 'department_id', 'required');
             // $this->form_validation->set_rules('id_no', 'id_no', 'required');
-            $this->form_validation->set_rules('employee_name', 'employee_name', 'required');
+            //$this->form_validation->set_rules('employee_name', 'employee_name', 'required');
             // $this->form_validation->set_rules('designation', 'designation', 'required');
             // $this->form_validation->set_rules('qualification', 'qualification', 'required');
             // $this->form_validation->set_rules('joining_date', 'joining_date', 'required');
@@ -551,10 +552,10 @@ class Admin_employee extends CI_Controller {
             // $this->form_validation->set_rules('contact_spouse', 'contact_spouse', 'numeric');
             // $this->form_validation->set_rules('children', 'children', 'numeric');
             // $this->form_validation->set_rules('father_contact', 'father_contact', 'numeric');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            //$this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             //if the form has passed through the validation
-            if ($this->form_validation->run()) {
+            //if ($this->form_validation->run()) {
                 $config['upload_path'] = 'uploads/employee/';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size'] = '100';
@@ -609,6 +610,7 @@ class Admin_employee extends CI_Controller {
                     'is_car' => $this->input->post('is_car'),
                     'is_mc' => $this->input->post('is_mc'),
                     'is_fuel' => $this->input->post('is_fuel'),
+                    'other_equipment' => $this->input->post('other_equipment'),
                     'punctuality' => $this->input->post('punctuality'),
                     'job_knowledge' => $this->input->post('job_knowledge'),
                     'initiative' => $this->input->post('initiative'),
@@ -658,7 +660,7 @@ class Admin_employee extends CI_Controller {
 //                } else {
 //                    $data['flash_message'] = FALSE;
 //                }
-            }
+            //}
         }
         $id=$this->input->post('employee_id');
         //$data['main_content'] = site_url().'admin/employee/update/'.$id;

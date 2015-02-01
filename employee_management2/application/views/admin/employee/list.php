@@ -6,7 +6,7 @@
             "bServerSide": true,
             "sServerMethod": "GET",
             "sAjaxSource": "employee/ajax_data",
-            "iDisplayLength": 10,
+            "iDisplayLength": 50,
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "aaSorting": [[0, 'asc']],
             "sPaginationType": "full_numbers",
@@ -41,11 +41,11 @@
             },
             //"sDom": '<"clear">T<"H"Cr><"clear">lfrt<"F"ip>',
             "aoColumns": [
+                {"bVisible": true, "bSearchable": false, "bSortable": false},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
-                {"bVisible": true, "bSearchable": true, "bSortable": true},
-                {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": false, "bSortable": false},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
@@ -177,6 +177,21 @@
 //              }
 ?>      -->
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>SL</th>
+                                <th>Company</th>
+                                <th>Department</th>
+                                <th>Name</th>
+                                <th>Picture</th>
+                                <th>Designation</th>
+                                <th>Contact Number</th>
+                                <th>Last Increment</th>
+                                <th>Increment Amount</th>
+                                <th>Is Active?</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
