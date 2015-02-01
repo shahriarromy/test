@@ -64,9 +64,10 @@
                 </thead>
                 <tbody>
                     <?php
+                    $i=1;
                     foreach ($company as $row) {
                         echo '<tr>';
-                        echo '<td>' . $row['id'] . '</td>';
+                        echo '<td>' . $i++ . '</td>';
                         echo '<td>' . $row['name'] . '</td>';
                         echo '<td class="crud-actions">
                   <a href="' . site_url("admin") . '/company/update/' . $row['id'] . '" class="btn btn-info">view & edit</a>  

@@ -242,17 +242,14 @@
         <div class="control-group">
             <label for="company_id" class="control-label">Select Company</label>
             <div class="controls">
-                <?php echo form_dropdown('company_id', $options_company, $selected, 'class="span2" onchange="javascript: return change_department($(this).val())"'); ?>
+                <?php echo form_dropdown('company_id', $options_company, $selected, 'class="span3" onchange="javascript: return change_department($(this).val())"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#comModal">Add</button>
             </div>
         </div>
         <div class="control-group">
             <label for="department_id" class="control-label">Select Department</label>
             <div class="controls">
-<!--                <select name="department_id" class="span2" id="department">
-                    <option value="0">Select</option>
-                </select>-->
-                <?php echo form_dropdown('department_id', $options_department, $selected_dep, 'class="span2" id="department"'); ?>
+                <?php echo form_dropdown('department_id', $options_department, $selected_dep, 'class="span3" id="department"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#depModal">Add</button>
             </div>
         </div>
@@ -260,10 +257,8 @@
             <label for="inputError" class="control-label">Current Photo</label>
             <div class="controls">
                 <?php if (isset($data[0]['employee_pic'])) { ?>
-    <!--                    <img src='".site_url()."uploads/employee/" . $aRow['employee_pic'] . "' style='height:50px; width:50px;' />-->
                     <img style="" align="" src="<?php echo site_url(); ?>uploads/employee/<?php echo $data[0]['employee_pic'] ?>" width="100" height="130">
                     <input type="hidden" name="employee_pic" value="<?php echo $data[0]['employee_pic'] ?>">
-
                 <?php } ?>
             </div>
         </div>
@@ -271,22 +266,14 @@
             <label for="inputError" class="control-label">Upload Photo</label>
             <div class="controls">
                 <input type="file" id="" name="employee_pic">
-                <!--<span class="help-inline">Woohoo!</span>-->
             </div>
-            <!--            <div class="controls">
-            <?php if (isset($data[0]['employee_pic'])) { ?>
-                                    <img src='".site_url()."uploads/employee/" . $aRow['employee_pic'] . "' style='height:50px; width:50px;' />
-                                            <img style="" align="" src="<?php echo site_url(); ?>uploads/employee/<?php echo $data[0]['employee_pic'] ?>" width="100" height="130">
-                                
-            <?php } ?>
-                        </div>-->
         </div>
     </fieldset>
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#personal_info">Personal Information</a></li>
         <li><a href="#service_info">Service Information</a></li>
         <li><a href="#Salary_details">Salary Details</a></li>
-        <li><a href="#special_assignment">Special Assignments</a></li>
+        <li><a href="#special_assignment">Special Assignment</a></li>
         <li><a href="#leave_record">Leave Record</a></li>
         <li><a href="#performance">Performance as a whole</a></li>
     </ul>
@@ -357,6 +344,7 @@
                         <select id="" name="blood_group">
                             <?php
                             $blood_group = array(
+                                "N/A",
                                 "A+",
                                 "B+",
                                 "O+",
@@ -382,21 +370,19 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Permanent address</label>
                     <div class="controls">
-                        <input type="text" id="" name="permanent_address" value="<?php echo $data[0]['permanent_address']; ?>">
-                        <!--<span class="help-inline">Cost Price</span>-->
+                        <textarea rows="3" id="" name="permanent_address"><?php echo $data[0]['permanent_address']; ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Present address</label>
                     <div class="controls">
-                        <input type="text" id="" name="present_address" value="<?php echo $data[0]['present_address']; ?>">
+                        <textarea rows="3" id="" name="present_address"><?php echo $data[0]['present_address']; ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Qualification</label>
                     <div class="controls">
                         <input type="text" id="" name="qualification" value="<?php echo $data[0]['qualification']; ?>">
-                        <!--<span class="help-inline">Cost Price</span>-->
                     </div>
                 </div>
             </fieldset>
@@ -407,20 +393,18 @@
                     <label for="inputError" class="control-label">Designation</label>
                     <div class="controls">
                         <input type="text" id="" name="designation" value="<?php echo $data[0]['designation']; ?>" >
-                        <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Joining Date</label>
                     <div class="controls">
                         <input type="date" name="joining_date" value="<?php echo $data[0]['joining_date']; ?>">
-                        <!--<span class="help-inline">OOps</span>-->
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Confirmation Date</label>
                     <div class="controls">
-                        <input type="date" name="confirmation_date" value="<?php echo $data[0]['confirmation_date']; ?>">
+                        <input type="date" name="confirmation_date" value="<?php if($data[0]['confirmation_date']=='0000-00-00') echo ''; else echo $data[0]['confirmation_date']; ?>">
                         <!--<span class="help-inline">OOps</span>-->
                     </div>
                 </div>
@@ -449,7 +433,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="inputError" class="control-label">Is Active?</label>
+                    <label for="inputError" class="control-label">Employment Activation</label>
                     <div class="controls">
                         <label class="radio inline">
                             <input <?php if ($data[0]['is_active'] == "yes") echo 'checked="checked"'; ?> type="radio" id="" name="is_active" value="yes"> Yes
@@ -529,18 +513,16 @@
                         <input type="text" id="total_salary" name="total" value="<?php echo $data[0]['total']; ?>">
                     </div>
                 </div>
-
-                <div class="control-group">
-                    <label for="inputError" class="control-label">Increment Amount</label>
-                    <div class="controls">
-                        <input type="text" id="total_salary" name="increment_amount" value="<?php echo $data[0]['increment_amount']; ?>">
-                    </div>
-                </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Last Increment Date</label>
                     <div class="controls">
-                        <input type="date" name="last_increment_date" value="<?php echo $data[0]['last_increment_date']; ?>">
-                        <!--<span class="help-inline">OOps</span>-->
+                        <input type="date" name="last_increment_date" value="<?php if($data[0]['last_increment_date']=='0000-00-00') echo ''; else echo $data[0]['last_increment_date']; ?>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Last increased amount</label>
+                    <div class="controls">
+                        <input type="text" id="total_salary" name="increment_amount" value="<?php echo $data[0]['increment_amount']; ?>">
                     </div>
                 </div>
             </fieldset>
@@ -565,7 +547,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="inputError" class="control-label">Target Achieved</label>
+                    <label for="inputError" class="control-label">Target Achieved Amount</label>
                     <div class="controls">
                         <input type="text" id="" name="target_achieved" value="<?php echo $data[0]['target_achieved']; ?>">
                     </div>
@@ -590,6 +572,9 @@
                         </label>
                         <label class="checkbox inline">
                             <input <?php if ($data[0]['personal_equipment'] == "Fuel") echo 'checked="checked"'; ?> type="checkbox" name="personal_equipment" value="Fuel"> Fuel
+                        </label>
+                        <label>
+                            Others <input type="text" name="other_equipment" value="<?php echo $data[0]['other_equipment']; ?>">
                         </label>
                     </div>
                 </div>

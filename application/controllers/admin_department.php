@@ -37,7 +37,7 @@ class Admin_department extends CI_Controller {
         $order_type = $this->input->post('order_type'); 
 
         //pagination settings
-        $config['per_page'] = 5;
+        $config['per_page'] = 20;
 
         $config['base_url'] = base_url().'admin/department';
         $config['use_page_numbers'] = TRUE;

@@ -232,16 +232,14 @@
         <div class="control-group">
             <label for="company_id" class="control-label">Select Company</label>
             <div class="controls">
-<?php echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2" onchange="javascript: return change_department($(this).val())"'); ?>
+                <?php echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span3" onchange="javascript: return change_department($(this).val())"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#comModal">Add</button>
             </div>
         </div>
         <div class="control-group">
             <label for="department_id" class="control-label">Select Department</label>
             <div class="controls">
-                <?php echo form_dropdown('department_id', $options =array(''=>'Select'), set_value(''), 'class="span2" id="department"'); ?>
-
-<?php //echo form_dropdown('department_id', $options_department, set_value('department_id'), 'class="span2" id="department"');  ?>
+                <?php echo form_dropdown('department_id', $options =array(''=>'Select'), set_value(''), 'class="span3" id="department"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#depModal">Add</button>
             </div>
         </div>
@@ -257,7 +255,7 @@
         <li class="active"><a href="#personal_info">Personal Information</a></li>
         <li><a href="#service_info">Service Information</a></li>
         <li><a href="#Salary_details">Salary Details</a></li>
-        <li><a href="#special_assignment">Special Assignments</a></li>
+        <li><a href="#special_assignment">Special Assignment</a></li>
         <li><a href="#leave_record">Leave Record</a></li>
         <li><a href="#performance">Performance as a whole</a></li>
     </ul>
@@ -317,6 +315,7 @@
                     <label for="inputError" class="control-label">Blood Group</label>
                     <div class="controls">
                         <select id="" name="blood_group">
+                            <option value="N/A">N/A</option>
                             <option value="A+">A+</option>
                             <option value="B+">B+</option>
                             <option value="O+">O+</option>
@@ -337,14 +336,13 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Permanent address</label>
                     <div class="controls">
-                        <input type="text" id="" name="permanent_address" value="<?php echo set_value('permanent_address'); ?>">
-                        <!--<span class="help-inline">Cost Price</span>-->
+                        <textarea rows="3" id="" name="permanent_address"><?php echo set_value('permanent_address'); ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Present address</label>
                     <div class="controls">
-                        <input type="text" id="" name="present_address" value="<?php echo set_value('present_address'); ?>">
+                        <textarea rows="3" id="" name="present_address"><?php echo set_value('present_address'); ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
@@ -411,10 +409,10 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="inputError" class="control-label">Is Active?</label>
+                    <label for="inputError" class="control-label">Employment Activation</label>
                     <div class="controls">
                         <label class="radio inline">
-                            <input type="radio" id="" name="is_active" value="yes"> Yes
+                            <input type="radio" id="" name="is_active" value="yes" checked="checked"> Yes
                         </label>
                         <label class="radio inline">
                             <input type="radio" id="" name="is_active" value="no"> No
@@ -491,6 +489,18 @@
                         <input type="text" id="total_salary" name="total" value="0">
                     </div>
                 </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Last increment date</label>
+                    <div class="controls">
+                        <input type="date" id="" name="last_increment_date" value="<?php echo set_value('last_increment_date'); ?>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Last increased amount</label>
+                    <div class="controls">
+                        <input type="text" id="" name="increment_amount" value="<?php echo set_value('increment_amount'); ?>">
+                    </div>
+                </div>
             </fieldset>
         </div>
         <div class="tab-pane" id="special_assignment">
@@ -513,7 +523,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="inputError" class="control-label">Target Achieved</label>
+                    <label for="inputError" class="control-label">Target Achieved Amount</label>
                     <div class="controls">
                         <input type="text" id="" name="target_achieved" value="<?php echo set_value('target_achieved'); ?>">
                     </div>
@@ -538,6 +548,9 @@
                         </label>
                         <label class="checkbox inline">
                             <input type="checkbox" name="is_fuel" value="Fuel"> Fuel
+                        </label>
+                        <label>
+                            Others <input type="text" name="other_equipment" value="<?php echo set_value('other_equipment'); ?>">
                         </label>
                     </div>
                 </div>

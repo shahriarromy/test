@@ -210,7 +210,7 @@ class Admin_company extends CI_Controller {
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run()) {
-                $config['upload_path'] = 'uploads/';
+                $config['upload_path'] = 'uploads/company/';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size'] = '100';
                 $config['max_width'] = '1024';
