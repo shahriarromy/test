@@ -33,7 +33,7 @@
                     }
                     ?>" height="80" width="109" alt="" ></p>
                 <h3 class="lead" style="text-align: center;"><?php echo $dep_com[0]['company_name']; ?></h3>
-                <h3 style="text-align: center;"><?php echo $dep_com[0]['department_name']; ?> Department</h3>
+                <h3 style="text-align: center;"><?php echo $dep_com[0]['department_name']; ?></h3>
                 <p style="text-align: center;"><img style="display: inline-block;height: 138px;width: 109px;max-width: 109px;border: 1px solid #000;" src="<?php echo base_url(); ?>uploads/employee/<?php
                     if (!empty($employee[0]['employee_pic'])) {
                         echo $employee[0]['employee_pic'];
@@ -108,10 +108,6 @@
                             <tr>
                                 <td><b>ID No.:</b></td>
                                 <td><?php echo $employee[0]['id_no']; ?></td>
-                            </tr>
-                            <tr>
-                                <td><b>Designation:</b></td>
-                                <td><?php echo $employee[0]['designation']; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Designation:</b></td>

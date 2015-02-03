@@ -213,8 +213,8 @@ class Admin_employee extends CI_Controller {
 
     function ajax_data() {
 
-        $aColumns = array('company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','last_increment_date','increment_amount','is_active','id');
-        $aColumns_temp = array('id_no','company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'last_increment_date','increment_amount','is_active','action','id');
+        $aColumns = array('id','id_no', 'company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number','last_increment_date','increment_amount','is_active');
+        $aColumns_temp = array('id','id_no','company_name', 'department_name', 'employee_name', 'employee_pic', 'designation', 'contact_number', 'last_increment_date','increment_amount','is_active','action');
 
         $sIndexColumn = "id";
         $sTable = 'v_employee';
@@ -294,10 +294,19 @@ class Admin_employee extends CI_Controller {
         foreach ($rResult as $aRow) {
             $row = array();
             foreach ($aColumns_temp as $col) {
-                if ($col == "id_no") {
+                if ($col == "id") {
                     /* Special output formatting for 'id' */
                     $row[] = $i;
                     $i++;
+                    continue;
+                }
+                if ($col == "last_increment_date") {
+                    if($aRow['last_increment_date']=='0000-00-00'){
+                        $row[] = 'N/A';
+                    }
+                    else {
+                        $row[] = $aRow['last_increment_date'];
+                    }
                     continue;
                 }
                 

@@ -603,13 +603,13 @@
                     </tr>
                     <tr>
                         <td>2015</td>
-                        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder="" value="<?php echo $leave[0]['casual_max']; ?>"></td>
+                        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder="" readonly="readonly" value="<?php echo $leave[0]['casual_max']; ?>"></td>
                         <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder="" value="<?php echo $leave[0]['casual_taken']; ?>"></td>
                         <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['casual_balance']; ?>"></td>
-                        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""value="<?php echo $leave[0]['privileged_max']; ?>"></td>
+                        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder="" readonly="readonly" value="<?php echo $leave[0]['privileged_max']; ?>"></td>
                         <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder="" value="<?php echo $leave[0]['privileged_taken']; ?>"></td>
                         <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['privileged_balance']; ?>"></td>
-                        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder="" value="<?php echo $leave[0]['sick_max']; ?>"></td>
+                        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder="" readonly="readonly" value="<?php echo $leave[0]['sick_max']; ?>"></td>
                         <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder="" value="<?php echo $leave[0]['sick_taken']; ?>"></td>
                         <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly" value="<?php echo $leave[0]['sick_balance']; ?>"></td>
                     </tr>
