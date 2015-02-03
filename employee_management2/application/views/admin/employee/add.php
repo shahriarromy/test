@@ -302,13 +302,14 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Date of Birth</label>
                     <div class="controls">
-                        <input type="date" id="" onchange="javascript: return change_age($(this).val())" name="d_o_b" value="<?php echo set_value('d_o_b'); ?>">
+                        <input type="date" id="txtDOB" onblur="javascript: return CalculateAge()" name="d_o_b">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="inputError" class="control-label">Present Age</label>
+                    <label for="inputError" id="" class="control-label">Present Age</label>
                     <div class="controls">
-                        <input type="text" id="present_age" name="present_age" readonly="readonly">
+                        <input type="text" id="lblAgeMesg" name="present_age">
+                        <span id="lblDOB"></span>
                     </div>
                 </div>
                 <div class="control-group">
@@ -579,13 +580,13 @@
                     </tr>
                     <tr>
                         <td>2015</td>
-                        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="casual_max" id="casual_max" placeholder="10" value="10" readonly="readonly"></td>
                         <td><input type="text" class="span1" name="casual_taken" id="casual_taken" placeholder=""></td>
                         <td><input type="text" class="span1" name="casual_balance" id="casual_balance" placeholder="" readonly="readonly"></td>
-                        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="privileged_max" id="privileged_max" placeholder="18" value="18" readonly="readonly"></td>
                         <td><input type="text" class="span1" name="privileged_taken" id="privileged_taken" placeholder=""></td>
                         <td><input type="text" class="span1" name="privileged_balance" id="privileged_balance" placeholder="" readonly="readonly"></td>
-                        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder=""></td>
+                        <td><input type="text" class="span1" name="sick_max" id="sick_max" placeholder="14"  value="14" readonly="readonly"></td>
                         <td><input type="text" class="span1" name="sick_taken" id="sick_taken" placeholder=""></td>
                         <td><input type="text" class="span1" name="sick_balance" id="sick_balance" placeholder="" readonly="readonly"></td>
                     </tr>

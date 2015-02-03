@@ -4,7 +4,7 @@
     </head>
     <body style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">
         <h3 class="lead" style="text-align: center;"><?php echo $dep_com[0]['company_name']; ?></h3>
-        <h3 class="lead" style="text-align: center;"><?php echo $dep_com[0]['department_name']; ?> Department</h3>
+        <h3 class="lead" style="text-align: center;"><?php echo $dep_com[0]['department_name']; ?></h3>
         <div>
             <div style="padding-top: 10px;width: 60%;float: left;display: inline-block;">
                 <div style="border: 1px solid #000;padding: 15px;">
@@ -75,10 +75,6 @@
                     <tr>
                         <td><b>ID No.:</b></td>
                         <td><?php echo $employee[0]['id_no']; ?></td>
-                    </tr>
-                    <tr>
-                        <td><b>Designation:</b></td>
-                        <td><?php echo $employee[0]['designation']; ?></td>
                     </tr>
                     <tr>
                         <td><b>Designation:</b></td>

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#employee_list').dataTable({
+    var table = $('#employee_list').dataTable({
             "bJQueryUI": true,
             "bProcessing": true,
             "bServerSide": true,
@@ -45,18 +45,21 @@
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
+                {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": false, "bSortable": false},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
                 {"bVisible": true, "bSearchable": true, "bSortable": true},
-                {"bVisible": true, "bSearchable": true, "bSortable": false}
+                {"bVisible": true, "bSearchable": false, "bSortable": false}
 
 
 
             ]
         }).columnFilter();
+        table.find('tfoot tr th').eq(5).html('');
+        table.find('tfoot tr th').eq(11).html('');
     });
 
     function delete_employee(item_id) {
@@ -74,7 +77,11 @@
                 );
     }
 </script>
-
+<style type="text/css">
+tfoot {
+    display: table-header-group;
+}
+</style>
 <div class="container top">
 
     <ul class="breadcrumb">
@@ -145,19 +152,36 @@
                     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="employee_list">
                         <thead>
                             <tr>
+                                <td>SL</td>
+                                <td>ID No.</td>
+                                <td>Company</td>
+                                <td>Department</td>
+                                <td>Name</td>
+                                <td>Picture</td>
+                                <td>Designation</td>
+                                <td>Contact Number</td>
+                                <td>Last Increment</td>
+                                <td>Increment Amount</td>
+                                <td>Is Active?</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
                                 <th>SL</th>
+                                <th>ID No.</th>
                                 <th>Company</th>
                                 <th>Department</th>
                                 <th>Name</th>
-                                <th>Picture</th>
+                                <th></th>
                                 <th>Designation</th>
                                 <th>Contact Number</th>
                                 <th>Last Increment</th>
                                 <th>Increment Amount</th>
                                 <th>Is Active?</th>
-                                <th>Action</th>
+                                <th></th>
                             </tr>
-                        </thead>
+                        </tfoot>
                         <tbody>
                             <!--              <?php
 //              foreach($employee as $row)
@@ -177,21 +201,6 @@
 //              }
 ?>      -->
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>SL</th>
-                                <th>Company</th>
-                                <th>Department</th>
-                                <th>Name</th>
-                                <th>Picture</th>
-                                <th>Designation</th>
-                                <th>Contact Number</th>
-                                <th>Last Increment</th>
-                                <th>Increment Amount</th>
-                                <th>Is Active?</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
