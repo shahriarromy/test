@@ -32,16 +32,27 @@
                         <td><?php echo $employee[0]['mother_name']; ?></td>
                     </tr>
                     <tr>
-                        <td><b>Contact no:</b></td>
-                        <td><?php echo $employee[0]['contact_number']; ?></td>
-                    </tr>
-                    <tr>
                         <td><b>Date of birth:</b></td>
-                        <td><?php if($employee[0]['d_o_b']=='0000-00-00' || empty($employee[0]['d_o_b'])) echo ''; else echo date('M j, Y', strtotime($employee[0]['d_o_b'])); ?></td>
+                        <td><?php
+                            if ($employee[0]['d_o_b'] == '0000-00-00' || empty($employee[0]['d_o_b']))
+                                echo '';
+                            else
+                                echo date('M j, Y', strtotime($employee[0]['d_o_b']));
+                            ?></td>
                     </tr>
                     <tr>
                         <td><b>Present Age:</b></td>
-                        <td><?php echo $employee[0]['present_age']; ?></td>
+                        <td><?php
+                            if ($employee[0]['joining_date'] == '0000-00-00' || empty($employee[0]['joining_date'])) {
+                                echo '';
+                            } else {
+                                $diff = ((strtotime(date('Y-m-d')) - strtotime($employee[0]['d_o_b'])));
+                                $years = floor($diff / (365 * 60 * 60 * 24));
+                                $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+                                $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+                                echo "$years Years $months Month $days Days";
+                            }
+                            ?></td>
                     </tr>
                     <tr>
                         <td><b>Blood Group:</b></td>
@@ -82,11 +93,21 @@
                     </tr>
                     <tr>
                         <td><b>Joining date:</b></td>
-                        <td><?php if($employee[0]['joining_date']=='0000-00-00' || empty($employee[0]['joining_date'])) echo ''; else echo date('M j, Y', strtotime($employee[0]['joining_date'])); ?></td>
+                        <td><?php
+                            if ($employee[0]['joining_date'] == '0000-00-00' || empty($employee[0]['joining_date']))
+                                echo '';
+                            else
+                                echo date('M j, Y', strtotime($employee[0]['joining_date']));
+                            ?></td>
                     </tr>
                     <tr>
                         <td><b>Confirmation date:</b></td>
-                        <td><?php if($employee[0]['confirmation_date']=='0000-00-00' || empty($employee[0]['confirmation_date'])) echo ''; else echo date('M j, Y', strtotime($employee[0]['confirmation_date'])); ?></td>
+                        <td><?php
+                            if ($employee[0]['confirmation_date'] == '0000-00-00' || empty($employee[0]['confirmation_date']))
+                                echo '';
+                            else
+                                echo date('M j, Y', strtotime($employee[0]['confirmation_date']));
+                            ?></td>
                     </tr>
                     <tr>
                         <td><b>Place of work:</b></td>
@@ -95,6 +116,21 @@
                     <tr>
                         <td><b>Guarantor's name:</b></td>
                         <td><?php echo $employee[0]['guarantor']; ?></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><b>Document with resume</b></td>
+                        <td><?php
+                            if (!empty($employee[0]['is_picture']))
+                                echo "<div>Picture</div>";
+                            if (!empty($employee[0]['is_academic_certificate']))
+                                echo "<div>Academic Certificate</div>";
+                            if (!empty($employee[0]['is_nationality_certificate']))
+                                echo "<div>Nationality certificate</div>";
+                            if (!empty($employee[0]['is_national_id_card']))
+                                echo "<div>National ID Card</div>";
+                            if (!empty($employee[0]['is_surety_bond']))
+                                echo "<div>Surety bond</div>";
+                            ?></td>
                     </tr>
                     <tr>
                         <td><b>Show cause:</b></td>
@@ -153,7 +189,7 @@
                     </tr>
                     <tr>
                         <td><b>Total:</b></td>
-                        <td><?php echo $employee[0]['total']; ?></td>
+                        <td><b><?php echo $employee[0]['total']; ?></b></td>
                     </tr>
                     <tr>
                         <td><b>Last increased amount:</b></td>
@@ -161,7 +197,12 @@
                     </tr>
                     <tr>
                         <td><b>Last increment date:</b></td>
-                        <td><?php if($employee[0]['last_increment_date']=='0000-00-00' || empty($employee[0]['last_increment_date'])) echo ''; else echo date('M j, Y', strtotime($employee[0]['last_increment_date'])); ?></td>
+                        <td><?php
+                            if ($employee[0]['last_increment_date'] == '0000-00-00' || empty($employee[0]['last_increment_date']))
+                                echo '';
+                            else
+                                echo date('M j, Y', strtotime($employee[0]['last_increment_date']));
+                            ?></td>
                     </tr>
                 </table>
             </div>
@@ -170,7 +211,7 @@
                 <table class="table table-borderless">
                     <tr>
                         <td><b>Appointed as in charge:</b></td>
-                        <td><?php echo ucfirst($employee[0]['appoinment_as']); ?></td>
+                        <td><?php echo ucfirst($employee[0]['appointment_as']); ?></td>
                     </tr>
                     <tr>
                         <td><b>Target given:</b></td>
@@ -187,18 +228,18 @@
                     <tr>
                         <td><b>Personally Equipment Facility:</b></td>
                         <td><?php
-                    if (!empty($employee[0]['is_laptop'])) {
-                        echo $employee[0]['is_laptop'];
-                    } if (!empty($employee[0]['is_car'])) {
-                        echo ' ' . $employee[0]['is_car'];
-                    } if (!empty($employee[0]['is_mc'])) {
-                        echo ' ' . $employee[0]['is_mc'];
-                    } if (!empty($employee[0]['is_fuel'])) {
-                        echo ' ' . $employee[0]['is_fuel'];
-                    } if (!empty($employee[0]['other_equipment'])) {
-                        echo ' ' . $employee[0]['other_equipment'];
-                    }
-                    ?></td>
+                            if (!empty($employee[0]['is_laptop'])) {
+                                echo $employee[0]['is_laptop'];
+                            } if (!empty($employee[0]['is_car'])) {
+                                echo ' ' . $employee[0]['is_car'];
+                            } if (!empty($employee[0]['is_mc'])) {
+                                echo ' ' . $employee[0]['is_mc'];
+                            } if (!empty($employee[0]['is_fuel'])) {
+                                echo ' ' . $employee[0]['is_fuel'];
+                            } if (!empty($employee[0]['other_equipment'])) {
+                                echo ' ' . $employee[0]['other_equipment'];
+                            }
+                            ?></td>
                     </tr>
                 </table>
             </div>

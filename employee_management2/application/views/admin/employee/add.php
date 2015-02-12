@@ -302,14 +302,7 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Date of Birth</label>
                     <div class="controls">
-                        <input type="date" id="txtDOB" onblur="javascript: return CalculateAge()" name="d_o_b">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="inputError" id="" class="control-label">Present Age</label>
-                    <div class="controls">
-                        <input type="text" id="lblAgeMesg" name="present_age">
-                        <span id="lblDOB"></span>
+                        <input type="date" id="" name="d_o_b">
                     </div>
                 </div>
                 <div class="control-group">
@@ -350,7 +343,6 @@
                     <label for="inputError" class="control-label">Qualification</label>
                     <div class="controls">
                         <input type="text" id="" name="qualification" value="<?php echo set_value('qualification'); ?>">
-                        <!--<span class="help-inline">Cost Price</span>-->
                     </div>
                 </div>
             </fieldset>
@@ -361,28 +353,24 @@
                     <label for="inputError" class="control-label">ID No.</label>
                     <div class="controls">
                         <input type="text" id="" name="id_no" value="<?php echo set_value('id_no'); ?>">
-                        <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Designation</label>
                     <div class="controls">
                         <input type="text" id="" name="designation" value="<?php echo set_value('designation'); ?>" >
-                        <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Joining Date</label>
                     <div class="controls">
                         <input type="date" name="joining_date" value="<?php echo set_value('joining_date'); ?>">
-                        <!--<span class="help-inline">OOps</span>-->
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Confirmation Date</label>
                     <div class="controls">
                         <input type="date" name="confirmation_date" value="<?php echo set_value('confirmation_date'); ?>">
-                        <!--<span class="help-inline">OOps</span>-->
                     </div>
                 </div>
                 <div class="control-group">
@@ -395,6 +383,26 @@
                     <label for="inputError" class="control-label">Name of the guarantor</label>
                     <div class="controls">
                         <input type="text" id="" name="guarantor" value="<?php echo set_value('guarantor'); ?>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Document with resume</label>
+                    <div class="controls">
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_picture" value="1"> Picture
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_academic_certificate" value="1"> Academic Certificate
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_nationality_certificate" value="1"> Nationality certificate
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_national_id_card" value="1"> National ID Card
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_surety_bond" value="1"> Surety bond
+                        </label>
                     </div>
                 </div>
                 <div class="control-group">

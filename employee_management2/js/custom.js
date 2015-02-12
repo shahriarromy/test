@@ -4,56 +4,51 @@ function CalculateAge() {
     //regular expression to validate date formate mm/dd/yyyy
     //var rex = /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d+$/;
 //    if (rex.test(dateString)) {
-        //convet to input date into Date object
-        var DOBDate = new Date(dateString);
-        //get the current date
-        var currentDate = new Date();
-        var monthDiff = currentDate.getMonth() - DOBDate.getMonth();
-        var yearDiff = currentDate.getFullYear() - DOBDate.getFullYear();
-        var dayDiff = currentDate.getDate() - DOBDate.getDate();
+    //convet to input date into Date object
+    var DOBDate = new Date(dateString);
+    //get the current date
+    var currentDate = new Date();
+    var monthDiff = currentDate.getMonth() - DOBDate.getMonth();
+    var yearDiff = currentDate.getFullYear() - DOBDate.getFullYear();
+    var dayDiff = currentDate.getDate() - DOBDate.getDate();
 //        if (isNaN(yearDiff)) {
 //            document.getElementById("lblDOB").innerHTML = "Input date is incorrect.";
 //        }
 //        else {
-            if (monthDiff < 0) {
-                yearDiff = parseInt(yearDiff, 10) - 1;
-                monthDiff = 12 + parseInt(monthDiff, 10);
-                if (dayDiff < 0) {
-                    monthDiff = parseInt(monthDiff, 10) - 1;
-                    dayDiff = 30 + parseInt(dayDiff, 10);
-                    document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                }
-                else {
-                    document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                }
+    if (monthDiff < 0) {
+        yearDiff = parseInt(yearDiff, 10) - 1;
+        monthDiff = 12 + parseInt(monthDiff, 10);
+        if (dayDiff < 0) {
+            monthDiff = parseInt(monthDiff, 10) - 1;
+            dayDiff = 30 + parseInt(dayDiff, 10);
+            document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
+        }
+        else {
+            document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
+        }
+    }
+    else {
+        if (monthDiff == 0) {
+            yearDiff = parseInt(yearDiff, 10) - 1;
+            if (dayDiff < 0) {
+                dayDiff = 30 + parseInt(dayDiff, 10);
+                document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
             }
             else {
-                if (monthDiff == 0) {
-                    yearDiff = parseInt(yearDiff, 10) - 1;
-                    if (dayDiff < 0) {
-                        dayDiff = 30 + parseInt(dayDiff, 10);
-                        document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                    }
-                    else {
-                        document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                    }
-                }
-                else {
-                    if (dayDiff < 0) {
-                        monthDiff = parseInt(monthDiff, 10) - 1;
-                        dayDiff = 30 + parseInt(dayDiff, 10);
-                        document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                    }
-                    else {
-                        document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
-                    }
-                }
+                document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
             }
-        //}
-//    }
-//    else {
-//        document.getElementById('lblDOB').innerHTML = 'Date must be of mm/dd/yyyy format';
-//    }
+        }
+        else {
+            if (dayDiff < 0) {
+                monthDiff = parseInt(monthDiff, 10) - 1;
+                dayDiff = 30 + parseInt(dayDiff, 10);
+                document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
+            }
+            else {
+                document.getElementById('lblAgeMesg').value = 'Age : ' + yearDiff + ' Years ' + monthDiff + ' Months ' + dayDiff + ' Days';
+            }
+        }
+    }
 }
 
 
@@ -75,10 +70,10 @@ function change_department(value) {
         type: "POST",
         url: site_url + "admin/employee/get_change_value/" + value,
         dataType: "JSON",
-        success: function (data) {
+        success: function(data) {
             //  data = JSON.parse(data)
             var str = '<option value="0">Select</option>';
-            $(data).each(function (i, v) {
+            $(data).each(function(i, v) {
 //                alert(v.name);
                 str += '<option value="' + v.id + '">' + v.name + '</option>';
             });
