@@ -42,139 +42,7 @@ class Admin_employee extends CI_Controller {
         $config['num_tag_close'] = '</li>';
         $config['cur_tag_open'] = '<li class="active"><a>';
         $config['cur_tag_close'] = '</a></li>';
-
-//        //all the posts sent by the view
-//        $department_id = $this->input->post('department_id');
-//        $company_id = $this->input->post('company_id');
-//        $search_string = $this->input->post('search_string');        
-//        $order = $this->input->post('order'); 
-//        $order_type = $this->input->post('order_type'); 
-//
-//        //pagination settings
-//        $config['per_page'] = 5;
-//        $config['base_url'] = base_url().'admin/employee';
-//        $config['use_page_numbers'] = TRUE;
-//        $config['num_links'] = 20;
-//        $config['full_tag_open'] = '<ul>';
-//        $config['full_tag_close'] = '</ul>';
-//        $config['num_tag_open'] = '<li>';
-//        $config['num_tag_close'] = '</li>';
-//        $config['cur_tag_open'] = '<li class="active"><a>';
-//        $config['cur_tag_close'] = '</a></li>';
-//
-//        //limit end
-//        $page = $this->uri->segment(3);
-//
-//        //math to get the initial record to be select in the database
-//        $limit_end = ($page * $config['per_page']) - $config['per_page'];
-//        if ($limit_end < 0){
-//            $limit_end = 0;
-//        } 
-//
-//        //if order type was changed
-//        if($order_type){
-//            $filter_session_data['order_type'] = $order_type;
-//        }
-//        else{
-//            //we have something stored in the session? 
-//            if($this->session->userdata('order_type')){
-//                $order_type = $this->session->userdata('order_type');    
-//            }else{
-//                //if we have nothing inside session, so it's the default "Asc"
-//                $order_type = 'Asc';    
-//            }
-//        }
-//        //make the data type var avaible to our view
-//        $data['order_type_selected'] = $order_type;        
-//
-//
-//        //we must avoid a page reload with the previous session data
-//        //if any filter post was sent, then it's the first time we load the content
-//        //in this case we clean the session filter data
-//        //if any filter post was sent but we are in some page, we must load the session data
-//
-//        //filtered && || paginated
-//        if($department_id !== false && $search_string !== false && $order !== false || $this->uri->segment(3) == true){ 
-//           
-//            /*
-//            The comments here are the same for line 79 until 99
-//
-//            if post is not null, we store it in session data array
-//            if is null, we use the session data already stored
-//            we save order into the the var to load the view with the param already selected       
-//            */
-//
-//            if($department_id !== 0){
-//                $filter_session_data['department_selected'] = $department_id;
-//            }else{
-//                $department_id = $this->session->userdata('department_selected');
-//            }
-//            $data['department_selected'] = $department_id;
-//
-//            if($search_string){
-//                $filter_session_data['search_string_selected'] = $search_string;
-//            }else{
-//                $search_string = $this->session->userdata('search_string_selected');
-//            }
-//            $data['search_string_selected'] = $search_string;
-//
-//            if($order){
-//                $filter_session_data['order'] = $order;
-//            }
-//            else{
-//                $order = $this->session->userdata('order');
-//            }
-//            $data['order'] = $order;
-//
-//            //save session data into the session
-//            $this->session->set_userdata($filter_session_data);
-//
-//            //fetch department data into arrays
-//            $data['department'] = $this->department_model->get_department();
-//
-//            $data['count_employee']= $this->employee_model->count_employee($department_id, $search_string, $order);
-//            $config['total_rows'] = $data['count_employee'];
-//
-//            //fetch sql data into arrays
-//            if($search_string){
-//                if($order){
-//                    $data['employee'] = $this->employee_model->get_employee($department_id, $search_string, $order, $order_type, $config['per_page'],$limit_end);        
-//                }else{
-//                    $data['employee'] = $this->employee_model->get_employee($department_id, $search_string, '', $order_type, $config['per_page'],$limit_end);           
-//                }
-//            }else{
-//                if($order){
-//                    $data['employee'] = $this->employee_model->get_employee($department_id, '', $order, $order_type, $config['per_page'],$limit_end);        
-//                }else{
-//                    $data['employee'] = $this->employee_model->get_employee($department_id, '', '', $order_type, $config['per_page'],$limit_end);        
-//                }
-//            }
-//
-//        }else{
-//
-//            //clean filter data inside section
-//            $filter_session_data['department_selected'] = null;
-//            $filter_session_data['search_string_selected'] = null;
-//            $filter_session_data['order'] = null;
-//            $filter_session_data['order_type'] = null;
-//            $this->session->set_userdata($filter_session_data);
-//
-//            //pre selected options
-//            $data['search_string_selected'] = '';
-//            $data['department_selected'] = 0;
-//            $data['order'] = 'id';
-//
-//            //fetch sql data into arrays
-//            $data['department'] = $this->department_model->get_department();
-//            $data['count_employee']= $this->employee_model->count_employee();
-//            $data['employee'] = $this->employee_model->get_employee('', '', '', $order_type, $config['per_page'],$limit_end);        
-//            $config['total_rows'] = $data['count_employee'];
-//
-//        }//!isset($department_id) && !isset($search_string) && !isset($order)
-//        
-
-//        
-//        
+      
         //initializate the panination helper 
         $this->pagination->initialize($config);
 
@@ -413,6 +281,11 @@ class Admin_employee extends CI_Controller {
                     'confirmation_date' => $this->input->post('confirmation_date'),
                     'place_of_work' => $this->input->post('place_of_work'),
                     'guarantor' => $this->input->post('guarantor'),
+                    'is_picture' => $this->input->post('is_picture')?$this->input->post('is_picture'):0,
+                    'is_academic_certificate' => $this->input->post('is_academic_certificate')?$this->input->post('is_academic_certificate'):0,
+                    'is_nationality_certificate' => $this->input->post('is_nationality_certificate')?$this->input->post('is_nationality_certificate'):0,
+                    'is_national_id_card' => $this->input->post('is_national_id_card')?$this->input->post('is_national_id_card'):0,
+                    'is_surety_bond' => $this->input->post('is_surety_bond')?$this->input->post('is_surety_bond'):0,
                     'show_cause' => $this->input->post('show_cause'),
                     'penalty' => $this->input->post('penalty'),
                     'consolidate_salary' => $this->input->post('consolidate_salary'),
@@ -426,6 +299,8 @@ class Admin_employee extends CI_Controller {
                     'conveyance_allow' => $this->input->post('conveyance_allow'),
                     'misc' => $this->input->post('misc'),
                     'total' => $this->input->post('total'),
+                    'last_increment_date' => $this->input->post('last_increment_date'),
+                    'increment_amount' => $this->input->post('increment_amount'),
                     'appointment_as' => $this->input->post('appointment_as'),
                     'target_given' => $this->input->post('target_given'),
                     'target_achieved' => $this->input->post('target_achieved'),
@@ -596,6 +471,11 @@ class Admin_employee extends CI_Controller {
                     'confirmation_date' => $this->input->post('confirmation_date'),
                     'place_of_work' => $this->input->post('place_of_work'),
                     'guarantor' => $this->input->post('guarantor'),
+                    'is_picture' => $this->input->post('is_picture')?$this->input->post('is_picture'):0,
+                    'is_academic_certificate' => $this->input->post('is_academic_certificate')?$this->input->post('is_academic_certificate'):0,
+                    'is_nationality_certificate' => $this->input->post('is_nationality_certificate')?$this->input->post('is_nationality_certificate'):0,
+                    'is_national_id_card' => $this->input->post('is_national_id_card')?$this->input->post('is_national_id_card'):0,
+                    'is_surety_bond' => $this->input->post('is_surety_bond')?$this->input->post('is_surety_bond'):0,
                     'show_cause' => $this->input->post('show_cause'),
                     'penalty' => $this->input->post('penalty'),
                     'consolidate_salary' => $this->input->post('consolidate_salary'),

@@ -3,32 +3,32 @@
 <script>
     webshims.setOptions('forms-ext', {types: 'date'});
     webshims.polyfill('forms forms-ext');
-    $(document).ready(function () {
-        $('#myTab a').click(function (e) {
+    $(document).ready(function() {
+        $('#myTab a').click(function(e) {
             e.preventDefault();
             $(this).tab('show');
         });
     });
-    $("input[id*='casual_max']").live('input', function (event) {
+    $("input[id*='casual_max']").live('input', function(event) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
-    $("input[id*='casual_taken']").live('input', function (event) {
+    $("input[id*='casual_taken']").live('input', function(event) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
-    jQuery(document).ready(function () {
-        $('#casual_max, #casual_taken').live('input', function () {
+    jQuery(document).ready(function() {
+        $('#casual_max, #casual_taken').live('input', function() {
             var val1 = $("#casual_max").val();
             var val2 = $("#casual_taken").val();
             var result = val1 - val2;
             $("#casual_balance").val(result);
         });
-        $('#privileged_max, #privileged_taken').live('input', function () {
+        $('#privileged_max, #privileged_taken').live('input', function() {
             var val1 = $("#privileged_max").val();
             var val2 = $("#privileged_taken").val();
             var result = val1 - val2;
             $("#privileged_balance").val(result);
         });
-        $('#sick_max, #sick_taken').live('input', function () {
+        $('#sick_max, #sick_taken').live('input', function() {
             var val1 = $("#sick_max").val();
             var val2 = $("#sick_taken").val();
             var result = val1 - val2;
@@ -142,7 +142,8 @@
             <div class="control-group">
                 <label for="company_id" class="control-label">Company</label>
                 <div class="controls">
-                    <?php //echo form_dropdown('department_id', $options_department, '', 'class="span2"');
+                    <?php
+                    //echo form_dropdown('department_id', $options_department, '', 'class="span2"');
 
                     echo form_dropdown('company_id', $options_company, set_value('company_id'), 'class="span2"');
                     ?>
@@ -242,24 +243,24 @@
         <div class="control-group">
             <label for="company_id" class="control-label">Select Company</label>
             <div class="controls">
-                <?php echo form_dropdown('company_id', $options_company, $selected, 'class="span3" onchange="javascript: return change_department($(this).val())"'); ?>
+<?php echo form_dropdown('company_id', $options_company, $selected, 'class="span3" onchange="javascript: return change_department($(this).val())"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#comModal">Add</button>
             </div>
         </div>
         <div class="control-group">
             <label for="department_id" class="control-label">Select Department</label>
             <div class="controls">
-                <?php echo form_dropdown('department_id', $options_department, $selected_dep, 'class="span3" id="department"'); ?>
+<?php echo form_dropdown('department_id', $options_department, $selected_dep, 'class="span3" id="department"'); ?>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#depModal">Add</button>
             </div>
         </div>
         <div class="control-group">
             <label for="inputError" class="control-label">Current Photo</label>
             <div class="controls">
-                <?php if (isset($data[0]['employee_pic'])) { ?>
+<?php if (isset($data[0]['employee_pic'])) { ?>
                     <img style="" align="" src="<?php echo site_url(); ?>uploads/employee/<?php echo $data[0]['employee_pic'] ?>" width="100" height="130">
                     <input type="hidden" name="employee_pic" value="<?php echo $data[0]['employee_pic'] ?>">
-                <?php } ?>
+<?php } ?>
             </div>
         </div>
         <div class="control-group">
@@ -284,7 +285,6 @@
                     <label for="inputError" class="control-label">ID No.</label>
                     <div class="controls">
                         <input type="text" id="" name="id_no" value="<?php echo $data[0]['id_no']; ?>">
-                        <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
                 <div class="control-group">
@@ -292,7 +292,6 @@
                     <div class="controls">
                         <input type="text" id="" name="employee_name" value="<?php echo $data[0]['employee_name']; ?>">
                         <input type="hidden" id="" name="employee_id" value="<?php echo $data[0]['id']; ?>">
-                        <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
                 <div class="control-group">
@@ -328,13 +327,29 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Date of Birth</label>
                     <div class="controls">
-                        <input type="date" id="" onchange="javascript: return change_age($(this).val())" name="d_o_b" value="<?php echo $data[0]['d_o_b']; ?>">
+                        <input type="date" id="txtDOB" onchange="javascript: return CalculateAge()" name="d_o_b" value="<?php
+                        if ($data[0]['d_o_b'] == '0000-00-00' || empty($data[0]['d_o_b'])) {
+                            echo '';
+                        } else {
+                            echo $data[0]['d_o_b'];
+                        }
+                        ?>">
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Present Age</label>
                     <div class="controls">
-                        <input type="text" id="present_age" name="present_age" readonly="readonly" value="<?php echo $data[0]['present_age']; ?>">
+                        <input type="text" id="lblAgeMesg" readonly="readonly" value="<?php
+                        if ($data[0]['d_o_b'] == '0000-00-00' || empty($data[0]['d_o_b'])) {
+                            echo '';
+                        } else {
+                            $diff = ((strtotime(date('Y-m-d')) - strtotime($data[0]['d_o_b'])));
+                            $years = floor($diff / (365 * 60 * 60 * 24));
+                            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+                            $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+                            echo "$years Years $months Month $days Days";
+                        }
+                        ?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -357,7 +372,7 @@
                             foreach ($blood_group as $value) {
                                 ?>
                                 <option <?php if ($data[0]['blood_group'] == $value) echo 'selected' ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
-                            <?php } ?>
+<?php } ?>
                         </select>
                     </div>
                 </div>
@@ -398,14 +413,15 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Joining Date</label>
                     <div class="controls">
-                        <input type="date" name="joining_date" value="<?php echo $data[0]['joining_date']; ?>">
+                        <input type="date" name="joining_date" value="<?php if ($data[0]['joining_date'] == '0000-00-00') echo '';
+else echo $data[0]['joining_date']; ?>">
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="inputError" class="control-label">Confirmation Date</label>
                     <div class="controls">
-                        <input type="date" name="confirmation_date" value="<?php if($data[0]['confirmation_date']=='0000-00-00') echo ''; else echo $data[0]['confirmation_date']; ?>">
-                        <!--<span class="help-inline">OOps</span>-->
+                        <input type="date" name="confirmation_date" value="<?php if ($data[0]['confirmation_date'] == '0000-00-00') echo '';
+else echo $data[0]['confirmation_date']; ?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -418,6 +434,26 @@
                     <label for="inputError" class="control-label">Name of the guarantor</label>
                     <div class="controls">
                         <input type="text" id="" name="guarantor" value="<?php echo $data[0]['guarantor']; ?>">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Document with resume</label>
+                    <div class="controls">
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_picture" <?php if (!empty($data[0]['is_picture'])) echo 'checked="checked"'; ?> value="1"> Picture
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_academic_certificate" <?php if (!empty($data[0]['is_academic_certificate'])) echo 'checked="checked"'; ?> value="1"> Academic Certificate
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_nationality_certificate" <?php if (!empty($data[0]['is_nationality_certificate'])) echo 'checked="checked"'; ?> value="1"> Nationality certificate
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_national_id_card" <?php if (!empty($data[0]['is_national_id_card'])) echo 'checked="checked"'; ?> value="1"> National ID Card
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="checkbox" name="is_surety_bond" <?php if (!empty($data[0]['is_surety_bond'])) echo 'checked="checked"'; ?> value="1"> Surety bond
+                        </label>
                     </div>
                 </div>
                 <div class="control-group">
@@ -516,7 +552,8 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Last Increment Date</label>
                     <div class="controls">
-                        <input type="date" name="last_increment_date" value="<?php if($data[0]['last_increment_date']=='0000-00-00') echo ''; else echo $data[0]['last_increment_date']; ?>">
+                        <input type="date" name="last_increment_date" value="<?php if ($data[0]['last_increment_date'] == '0000-00-00') echo '';
+else echo $data[0]['last_increment_date']; ?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -562,16 +599,16 @@
                     <label for="inputError" class="control-label">Personally Equipment Facility</label>
                     <div class="controls">
                         <label class="checkbox inline">
-                            <input <?php if ($data[0]['personal_equipment'] == "Laptop") echo 'checked="checked"'; ?> type="checkbox" name="personal_equipment" value="Laptop"> Laptop
+                            <input <?php if (!empty($data[0]['is_laptop'])) echo 'checked="checked"'; ?> type="checkbox" name="is_laptop" value="Laptop"> Laptop
                         </label>
                         <label class="checkbox inline">
-                            <input <?php if ($data[0]['personal_equipment'] == "Car") echo 'checked="checked"'; ?> type="checkbox" name="personal_equipment" value="Car"> Car
+                            <input <?php if (!empty($data[0]['is_car'])) echo 'checked="checked"'; ?> type="checkbox" name="is_car" value="Car"> Car
                         </label>
                         <label class="checkbox inline">
-                            <input <?php if ($data[0]['personal_equipment'] == "MC") echo 'checked="checked"'; ?> type="checkbox" name="personal_equipment" value="MC"> MC
+                            <input <?php if (!empty($data[0]['is_mc'])) echo 'checked="checked"'; ?> type="checkbox" name="is_mc" value="MC"> MC
                         </label>
                         <label class="checkbox inline">
-                            <input <?php if ($data[0]['personal_equipment'] == "Fuel") echo 'checked="checked"'; ?> type="checkbox" name="personal_equipment" value="Fuel"> Fuel
+                            <input <?php if (!empty($data[0]['is_fuel'])) echo 'checked="checked"'; ?> type="checkbox" name="is_fuel" value="Fuel"> Fuel
                         </label>
                         <label>
                             Others <input type="text" name="other_equipment" value="<?php echo $data[0]['other_equipment']; ?>">
@@ -683,6 +720,6 @@
         </div>
     </fieldset>
 
-    <?php echo form_close(); ?>
+<?php echo form_close(); ?>
 
 </div>
